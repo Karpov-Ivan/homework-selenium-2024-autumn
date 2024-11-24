@@ -1,6 +1,7 @@
 import time
 
 import allure
+from selenium.common import TimeoutException
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -56,3 +57,14 @@ class BasePage(object):
         element = self.wait(timeout).until(EC.visibility_of_element_located(locator))
         element.clear()
         element.send_keys(text)
+
+    def is_element_present(self, locator, timeout=None):
+        try:
+            self.wait(timeout).until(EC.presence_of_element_located(locator))
+            return True
+        except TimeoutException:
+            return False
+
+    def get_element_text(self, locator, timeout=None):
+        element = self.wait(timeout).until(EC.visibility_of_element_located(locator))
+        return element.text
