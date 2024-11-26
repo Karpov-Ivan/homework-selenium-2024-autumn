@@ -153,3 +153,57 @@ class TestBudgetPage(BaseCase):
 
         my_budget_page.fill_payment_amount("600")
         my_budget_page.click_recharge_button_popup()
+
+    def test_bonus_program_page(self, login_page, login_data):
+        my_budget_page = login_page.login(login_data["username"], login_data["password"])
+        my_budget_page.open_budget_tab()
+
+        my_budget_page.open_bonus_program_tab()
+
+        assert self.driver.current_url == "https://ads.vk.com/hq/budget/bonus", "URL does not match Bonus Program page"
+
+        my_budget_page.check_element_bonus_program_page()
+
+    def test_activate_promocode_popup_opens(self, login_page, login_data):
+        my_budget_page = login_page.login(login_data["username"], login_data["password"])
+        my_budget_page.open_budget_tab()
+
+        my_budget_page.open_bonus_program_tab()
+
+        my_budget_page.click_activate_promocode()
+
+        my_budget_page.check_activate_promocode_popup()
+
+    def test_close_promocode_popup(self, login_page, login_data):
+        my_budget_page = login_page.login(login_data["username"], login_data["password"])
+        my_budget_page.open_budget_tab()
+
+        my_budget_page.open_bonus_program_tab()
+
+        my_budget_page.click_activate_promocode()
+
+        my_budget_page.click_close_activate_promocode()
+
+    def test_input_all_characters_in_promo_code_field(self, login_page, login_data):
+        my_budget_page = login_page.login(login_data["username"], login_data["password"])
+        my_budget_page.open_budget_tab()
+        my_budget_page.open_bonus_program_tab()
+
+        my_budget_page.click_activate_promocode()
+
+        promo_code = "abc123!@#"
+        my_budget_page.enter_promo_code(promo_code)
+        assert my_budget_page.get_promo_code_input_value() == promo_code, "The input field should accept all entered characters."
+
+    def test_error_on_invalid_promo_code(self, login_page, login_data):
+        my_budget_page = login_page.login(login_data["username"], login_data["password"])
+        my_budget_page.open_budget_tab()
+        my_budget_page.open_bonus_program_tab()
+
+        my_budget_page.click_activate_promocode()
+
+        invalid_promo_code = "INVALIDCODE"
+        my_budget_page.enter_promo_code(invalid_promo_code)
+        my_budget_page.click_activate_promo_code_button()
+
+        assert my_budget_page.is_error_message_displayed()

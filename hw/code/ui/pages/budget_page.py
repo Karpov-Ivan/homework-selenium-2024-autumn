@@ -78,3 +78,37 @@ class BudgetPage(BasePage):
 
     def check_help_popup_present_2(self):
         assert self.is_element_present(BudgetPageLocators.POPUP_HEADER_2), "Popup header not found"
+
+    def open_bonus_program_tab(self):
+        self.click(BudgetPageLocators.TAB_BONUS_PROGRAM)
+
+    def check_element_bonus_program_page(self):
+        assert self.is_element_present(
+            BudgetPageLocators.ACTIVATE_PROMOCODE_BUTTON), "Activate Promocode button is not present"
+
+        assert self.is_element_present(
+            BudgetPageLocators.ACTIVATED_PROMOCODES_HEADER), "'Activated Promocodes' header is not present"
+
+        assert self.is_element_present(
+            BudgetPageLocators.PERSONAL_OFFERS_HEADER), "'Personal Offers' header is not present"
+
+    def click_activate_promocode(self):
+        self.click(BudgetPageLocators.ACTIVATE_PROMOCODE_BUTTON)
+
+    def check_activate_promocode_popup(self):
+        assert self.is_element_present(BudgetPageLocators.POPUP_HEADER), "Pop-up window not opened"
+
+    def click_close_activate_promocode(self):
+        self.click(BudgetPageLocators.CLOSE_BUTTON_LOCATOR)
+
+    def enter_promo_code(self, promo_code):
+        self.enter_text(BudgetPageLocators.INPUT_PROMOCODE, promo_code)
+
+    def get_promo_code_input_value(self):
+        return self.get_element_value(BudgetPageLocators.INPUT_PROMOCODE)
+
+    def click_activate_promo_code_button(self):
+        self.click(BudgetPageLocators.BUTTON_PROMOCODE)
+
+    def is_error_message_displayed(self):
+        return self.is_element_present(BudgetPageLocators.ERROR_MESSAGE_PROMOCODE)
