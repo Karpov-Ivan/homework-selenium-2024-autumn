@@ -28,7 +28,7 @@ class BudgetPage(BasePage):
         self.enter_text(BudgetPageLocators.INPUT_PAYMENT_AMOUNT, amount)
 
     def get_text_from_input(self):
-        return self.get_element_text(BudgetPageLocators.INPUT_PAYMENT_AMOUNT)
+        return self.get_element_value(BudgetPageLocators.INPUT_PAYMENT_AMOUNT)
 
     def click_popup_close_button(self):
         self.click(BudgetPageLocators.CLOSE_BUTTON_LOCATOR)
@@ -60,3 +60,15 @@ class BudgetPage(BasePage):
 
         WebDriverWait(self.driver, 10).until(lambda driver: driver.current_url == expected_url)
         assert self.driver.current_url == expected_url, f"Expected URL to be {expected_url}, but got {self.driver.current_url}"
+
+    def fill_payment_amount_without_vat(self, decimal):
+        self.enter_text(BudgetPageLocators.INPUT_PAYMENT_AMOUNT_WITHOUT_VAT, decimal)
+
+    def get_text_from_input_without_vat(self):
+        return self.get_element_value(BudgetPageLocators.INPUT_PAYMENT_AMOUNT_WITHOUT_VAT)
+
+    def is_error_present(self):
+        return self.is_element_present(BudgetPageLocators.ERROR_MESSAGE)
+
+    def click_recharge_button_popup(self):
+        self.click(BudgetPageLocators.BUTTON_RECHARGE_POPUP)

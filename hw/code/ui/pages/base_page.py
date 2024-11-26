@@ -68,3 +68,7 @@ class BasePage(object):
     def get_element_text(self, locator, timeout=None):
         element = self.wait(timeout).until(EC.visibility_of_element_located(locator))
         return element.text
+
+    def get_element_value(self, locator, timeout=None):
+        element = self.wait(timeout).until(EC.presence_of_element_located(locator))
+        return element.get_attribute("value")
