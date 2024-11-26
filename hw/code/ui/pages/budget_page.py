@@ -72,3 +72,9 @@ class BudgetPage(BasePage):
 
     def click_recharge_button_popup(self):
         self.click(BudgetPageLocators.BUTTON_RECHARGE_POPUP)
+
+    def click_button_help_2(self):
+        self.click(BudgetPageLocators.ICON_HELP_2)
+
+    def check_help_popup_present_2(self):
+        assert self.is_element_present(BudgetPageLocators.POPUP_HEADER_2), "Popup header not found"

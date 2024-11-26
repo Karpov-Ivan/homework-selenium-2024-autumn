@@ -1,6 +1,4 @@
 import os
-import time
-
 import pytest
 from base_case import BaseCase
 from dotenv import load_dotenv
@@ -131,3 +129,27 @@ class TestBudgetPage(BaseCase):
         my_budget_page.fill_payment_amount_without_vat("166667")
         my_budget_page.click_recharge_button_popup()
         my_budget_page.check_error_message("уменьшите сумму")
+
+    def test_open_popup_and_check_text_2(self, login_page, login_data):
+        my_budget_page = login_page.login(login_data["username"], login_data["password"])
+        my_budget_page.open_budget_tab()
+        my_budget_page.click_recharge_button()
+
+        my_budget_page.click_button_help_2()
+        my_budget_page.check_help_popup_present_2()
+
+    def test_click_on_link_in_popup_2(self, login_page, login_data):
+        my_budget_page = login_page.login(login_data["username"], login_data["password"])
+        my_budget_page.open_budget_tab()
+        my_budget_page.click_recharge_button()
+
+        my_budget_page.click_button_help_2()
+        my_budget_page.check_link_help_popup("https://ads.vk.com/help/articles/billing#min")
+
+    def test_valid_payment_opens_next_modal(self, login_page, login_data):
+        my_budget_page = login_page.login(login_data["username"], login_data["password"])
+        my_budget_page.open_budget_tab()
+        my_budget_page.click_recharge_button()
+
+        my_budget_page.fill_payment_amount("600")
+        my_budget_page.click_recharge_button_popup()
