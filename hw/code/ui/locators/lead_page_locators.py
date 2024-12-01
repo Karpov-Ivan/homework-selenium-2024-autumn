@@ -20,6 +20,7 @@ class LeadPageLocators:
     BUTTON_BONUS = (By.XPATH, "//label[div[div[span[contains(text(), 'Бонус')]]]]")
 
     BUTTON_CONTINUE = (By.XPATH, "//button[@title='Продолжить']")
+    BUTTON_CANCEL = (By.XPATH, "//span[contains(text(), 'Отмена')]")
     CLOSE_BUTTON_LOCATOR = (By.CSS_SELECTOR, '[aria-label="Close"]')
 
     ERROR_1_NAME = (By.XPATH, "//span[preceding-sibling::span[input[@placeholder='Название компании']]]")

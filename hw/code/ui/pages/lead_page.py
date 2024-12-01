@@ -54,11 +54,20 @@ class LeadPage(BasePage):
     def click_1_bonus_button(self):
         self.click(LeadPageLocators.BUTTON_BONUS)
 
-    def get_text_from_input(self):
-        return self.get_element_value(LeadPageLocators.INPUT_PAYMENT_AMOUNT)
+    def click_cancel(self):
+        self.click(LeadPageLocators.BUTTON_CANCEL)
+
+    def click_continue(self):
+        self.click(LeadPageLocators.BUTTON_CONTINUE)
 
     def click_popup_close_button(self):
         self.click(LeadPageLocators.CLOSE_BUTTON_LOCATOR)
+
+    def check_big_description_present(self):
+        assert self.is_element_present(LeadPageLocators.INPUT_1_BIG_DESCRIPTION), "Big description field not displayed"
+
+    def check_skidka_present(self):
+        assert self.is_element_present(LeadPageLocators.BUTTON_SKIDKA), "Bonus form not displayed"
 
     def check_error_message(self, expected_message):
         error = self.find(LeadPageLocators.ERROR_MESSAGE)

@@ -39,13 +39,40 @@ class TestLeadPage(BaseCase):
         my_lead_page.click_popup_close_button()
         my_lead_page.check_popup_closed()
 
-    def test_close_popup_by_clicking_close_button(self, login_page, login_data):
+    def test_close_popup_by_clicking_outside(self, login_page, login_data):
         my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
         my_lead_page.open_lead_tab()
         my_lead_page.click_new_button()
 
         my_lead_page.click_outside()
         my_lead_page.check_popup_closed()
+
+    def test_close_popup_by_clicking_cancel_button(self, login_page, login_data):
+        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
+        my_lead_page.open_lead_tab()
+        my_lead_page.click_new_button()
+
+        my_lead_page.click_cancel()
+        my_lead_page.check_popup_closed()
+
+    def test_more_text_button_opens_popup(self, login_page, login_data):
+        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
+        my_lead_page.open_lead_tab()
+        my_lead_page.click_new_button()
+
+        my_lead_page.click_1_more_text_button()
+
+        my_lead_page.check_big_description_present()
+
+    def test_more_text_button_opens_popup(self, login_page, login_data):
+        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
+        my_lead_page.open_lead_tab()
+        my_lead_page.click_new_button()
+
+        my_lead_page.click_1_magnet_button()
+
+        my_lead_page.check_skidka_present()
+    
 
     
         
