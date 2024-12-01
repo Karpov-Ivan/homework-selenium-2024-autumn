@@ -18,6 +18,8 @@ class LeadPageLocators:
     BUTTON_SKIDKA = (By.XPATH, "//label[div[div[span[contains(text(), 'Скидка')]]]]")
     BUTTON_BONUS = (By.XPATH, "//label[div[div[span[contains(text(), 'Бонус')]]]]")
 
+    BUTTON_CONTINUE = (By.XPATH, "//button[@title='Продолжить']")
+
     ERROR_1_NAME = (By.XPATH, "//span[preceding-sibling::span[input[@placeholder='Название компании']]]")
     ERROR_1_HEADING = (By.XPATH, "//span[preceding-sibling::span[input[@placeholder='Текст заголовка']]]")
     ERROR_1_DESCRIPTION = (By.XPATH, "//span[preceding-sibling::span[input[@placeholder='Введите описание']]]")

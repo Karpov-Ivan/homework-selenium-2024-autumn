@@ -1,6 +1,7 @@
 from hw.code.ui.locators.login_page_locators import LoginPageLocators
 from hw.code.ui.pages.base_page import BasePage
 from hw.code.ui.pages.budget_page import BudgetPage
+from hw.code.ui.pages.lead_page import LeadPage
 
 
 class LoginPage(BasePage):
@@ -15,6 +16,12 @@ class LoginPage(BasePage):
 
     def click_continue_button(self):
         self.click(self.locators.CONTINUE_BUTTON)
+
+    def click_different_button(self):
+        self.click(self.locators.DIFFERENT_BUTTON)
+
+    def click_password_button(self):
+        self.click(self.locators.PASSWORD_BUTTON)
 
     def enter_password(self, password):
         self.enter_text(self.locators.PASSWORD_INPUT, password)
@@ -36,3 +43,17 @@ class LoginPage(BasePage):
         self.click_name()
 
         return BudgetPage(self.driver)
+    
+    def login_for_lead(self, username, password):
+        self.driver.get(self.url)
+
+        self.go_to_cabinet()
+        self.enter_login(username)
+        self.click_continue_button()
+        # self.click_different_button()
+        # self.click_password_button()
+        self.enter_password(password)
+        self.click_continue_button_2()
+        self.click_name()
+
+        return LeadPage(self.driver)
