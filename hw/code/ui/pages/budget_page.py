@@ -12,7 +12,7 @@ class BudgetPage(BasePage):
         self.driver = driver
 
     def open_budget_tab(self):
-        self.click(self.locators.TAB_BUDGET)
+        self.click(self.locators.TAB_BUDGET, 10)
 
     def click_recharge_button(self):
         self.click(BudgetPageLocators.BUTTON_RECHARGE)
