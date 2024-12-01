@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 class LeadPageLocators:
     TAB_LEAD = (By.XPATH, "//span[contains(text(), 'Лид-формы и опросы')]")
     BUTTON_NEW = (By.CLASS_NAME, "vkuiButton__in")
+    VK_ADS_LOGO = (By.XPATH, "//img[@alt='Logo']")
 
     POPUP_NEW = (By.CLASS_NAME, "ModalRoot_componentWrapper__uzHTL")
     INPUT_1_NAME = (By.XPATH, "//input[@placeholder='Название компании']")
@@ -19,6 +20,7 @@ class LeadPageLocators:
     BUTTON_BONUS = (By.XPATH, "//label[div[div[span[contains(text(), 'Бонус')]]]]")
 
     BUTTON_CONTINUE = (By.XPATH, "//button[@title='Продолжить']")
+    CLOSE_BUTTON_LOCATOR = (By.CSS_SELECTOR, '[aria-label="Close"]')
 
     ERROR_1_NAME = (By.XPATH, "//span[preceding-sibling::span[input[@placeholder='Название компании']]]")
     ERROR_1_HEADING = (By.XPATH, "//span[preceding-sibling::span[input[@placeholder='Текст заголовка']]]")

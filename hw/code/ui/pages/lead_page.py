@@ -20,6 +20,12 @@ class LeadPage(BasePage):
     def check_popup_present(self):
         assert self.is_element_present(LeadPageLocators.POPUP_NEW), "New lead form popup not displayed"
 
+    def click_popup_close_button(self):
+        self.click(LeadPageLocators.CLOSE_BUTTON_LOCATOR)
+
+    def click_outside(self):
+        self.click(LeadPageLocators.VK_ADS_LOGO)
+
     def check_popup_closed(self):
         time.sleep(1)
         assert not self.is_element_present(LeadPageLocators.POPUP_NEW), "New lead form popup not displayed"
