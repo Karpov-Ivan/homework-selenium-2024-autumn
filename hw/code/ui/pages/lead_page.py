@@ -74,6 +74,9 @@ class LeadPage(BasePage):
     def click_back(self):
         self.click(LeadPageLocators.BUTTON_BACK)
 
+    def click_save(self):
+        self.click(LeadPageLocators.BUTTON_SAVE)
+
     def click_popup_close_button(self):
         self.click(LeadPageLocators.CLOSE_BUTTON_LOCATOR)
 
@@ -131,6 +134,15 @@ class LeadPage(BasePage):
         self.fill_1_description('aa')
 
         self.click_continue()
+
+    def fill_2_question(self, description):
+        self.enter_text(LeadPageLocators.INPUT_QUESTION, description)
+
+    def fill_2_answer_1(self, description):
+        self.enter_text(LeadPageLocators.INPUT_2_ANSWER_1, description)
+
+    def fill_2_answer_2(self, description):
+        self.enter_text(LeadPageLocators.INPUT_2_ANSWER_2, description)
 
     def click_2_add_question_button(self):
         self.click(LeadPageLocators.BUTTON_2_ADD_QUESTION)
@@ -282,6 +294,60 @@ class LeadPage(BasePage):
 
     def check_error_3_promo_message(self, expected_message):
         error = self.find(LeadPageLocators.ERROR_3_PROMO)
+        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
+
+    def check_4_button_email_present(self):
+        time.sleep(1)
+        assert self.is_element_present(LeadPageLocators.BUTTON_4_EMAIL), "Button for email notification is not displayed"
+
+    def check_4_input_email_notification_present(self):
+        time.sleep(1)
+        assert self.is_element_present(LeadPageLocators.INPUT_4_EMAIL_FOR_NOTIFICATION), "Input for email notification is not displayed"
+
+    def check_4_modal_present(self):
+        time.sleep(1)
+        assert self.is_element_present(LeadPageLocators.MODAL_PAGE), "Modal page is not displayed"
+
+    def check_4_warning_present(self):
+        time.sleep(1)
+        assert self.is_element_present(LeadPageLocators.MODAL_WARNING), "Warning is not displayed"
+
+    def check_draft_present(self):
+        time.sleep(1)
+        assert self.is_element_present(LeadPageLocators.MODAL_DRAFT), "Draft is not displayed"
+
+    def click_4_click_necessary_question(self):
+        self.click(LeadPageLocators.BUTTON_4_NECESSARY_QUESTIONS)
+
+    def click_4_button_email(self):
+        self.click(LeadPageLocators.BUTTON_4_EMAIL)
+
+    def fill_4_fio(self, promo):
+        self.enter_text(LeadPageLocators.INPUT_4_FIO, promo)
+
+    def fill_4_address(self, promo):
+        self.enter_text(LeadPageLocators.INPUT_4_ADDRESS, promo)
+
+    def fill_4_email(self, promo):
+        self.enter_text(LeadPageLocators.INPUT_4_EMAIL, promo)
+
+    def fill_4_inn(self, promo):
+        self.enter_text(LeadPageLocators.INPUT_4_INN, promo)
+
+    def check_error_4_fio_message(self, expected_message):
+        error = self.find(LeadPageLocators.ERROR_4_FIO)
+        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
+
+    def check_error_4_address_message(self, expected_message):
+        error = self.find(LeadPageLocators.ERROR_4_ADDRESS)
+        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
+
+    def check_error_4_email_message(self, expected_message):
+        error = self.find(LeadPageLocators.ERROR_4_EMAIL)
+        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
+
+    def check_error_4_inn_message(self, expected_message):
+        error = self.find(LeadPageLocators.ERROR_4_INN)
         assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
 
     

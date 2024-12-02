@@ -58,6 +58,7 @@ class LeadPageLocators:
     ERROR_2_QUESTION_TEXT = (By.XPATH, "//div[@class='Tooltip_tooltipContainer__P1b-O']")
     ERROR_2_CONTACT = (By.XPATH, "(//p[@class='vkuiTypography vkuiTypography--normalize vkuiBanner__text vkuiText vkuiText--sizeY-none'])[2]")
 
+    INPUT_QUESTION = (By.XPATH, "//textarea[@placeholder='Напишите вопрос']")
     INPUT_2_ANSWER_1 = (By.XPATH, "(//input[@placeholder='Введите ответ'])[1]")
     INPUT_2_ANSWER_2 = (By.XPATH, "(//input[@placeholder='Введите ответ'])[2]")
     INPUT_2_ANSWER_3 = (By.XPATH, "(//input[@placeholder='Введите ответ'])[3]")
@@ -82,9 +83,27 @@ class LeadPageLocators:
     ERROR_3_SITE = (By.XPATH, "(//span[@class='vkuiTypography vkuiTypography--normalize vkuiFormItem__bottom vkuiFootnote'])[3]")
     ERROR_3_PHONE = (By.XPATH, "(//span[@class='vkuiTypography vkuiTypography--normalize vkuiFormItem__bottom vkuiFootnote'])[4]")
     ERROR_3_PROMO = (By.XPATH, "(//span[@class='vkuiTypography vkuiTypography--normalize vkuiFormItem__bottom vkuiFootnote'])[5]")
-    
-    
 
+    BUTTON_4_EMAIL = (By.XPATH, "//span[contains(text(), 'Уведомлять о новых заявках по email')]")
+    BUTTON_4_VKMESSENGER = (By.XPATH, "//span[contains(text(), 'Уведомлять о новых заявках в VK Messenger')]")
+    BUTTON_4_NECESSARY_QUESTIONS = (By.XPATH, "//span[contains(text(), 'Обязательные вопросы')]")
+
+    INPUT_4_FIO = (By.XPATH, "//input[@placeholder='Введите фамилию, имя и отчество']")
+    INPUT_4_ADDRESS = (By.XPATH, "//input[@placeholder='Введите адрес']")
+    INPUT_4_EMAIL = (By.XPATH, "//input[@placeholder='Введите email']")
+    INPUT_4_INN = (By.XPATH, "//input[@placeholder='Введите ИНН']")
+    INPUT_4_EMAIL_FOR_NOTIFICATION = (By.XPATH, "//input[@placeholder='email@example.com']")
+    
+    ERROR_4_FIO = (By.XPATH, "//span[preceding-sibling::span[input[@placeholder='Введите фамилию, имя и отчество']]]")
+    ERROR_4_ADDRESS = (By.XPATH, "//span[preceding-sibling::span[input[@placeholder='Введите адрес']]]")
+    ERROR_4_EMAIL = (By.XPATH, "//span[preceding-sibling::span[input[@placeholder='Введите email']]]")
+    ERROR_4_INN = (By.XPATH, "//span[preceding-sibling::span[input[@placeholder='Введите ИНН']]]")
+    ERROR_4_EMAIL_FOR_NOTIFICATION = (By.XPATH, "//span[preceding-sibling::span[input[@placeholder='email@example.com']]]")
+
+    BUTTON_SAVE = (By.XPATH, "//button[@title='Сохранить']")
+    MODAL_PAGE = (By.XPATH, "//div[@class='vkuiModalPage vkuiModalPage--desktop vkuiInternalModalPage--sizeX-regular vkuiModalPage--size-s ModalManagerPage_auto__5nb+P ModalManagerPage_withoutCloser__j8RcY']")
+    MODAL_WARNING = (By.XPATH, "//h2[contains(text(), 'Сделать все вопросы обязательными?')]")
+    MODAL_DRAFT = (By.XPATH, "//h2[contains(text(), 'Сохранить черновик лид-формы?')]")
 
 
 

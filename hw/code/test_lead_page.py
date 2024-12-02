@@ -419,7 +419,137 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.check_error_3_site_message('Невалидный url')
 
+    def test_switch_to_page_4(self, login_page, login_data):
+        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
+        my_lead_page.open_lead_tab()
+        my_lead_page.click_new_button()
 
+        my_lead_page.switch_to_page_2()
+
+        my_lead_page.click_continue()
+
+        my_lead_page.click_continue()
+
+        my_lead_page.check_4_button_email_present()
+
+    def test_4_button_necessary_questions(self, login_page, login_data):
+        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
+        my_lead_page.open_lead_tab()
+        my_lead_page.click_new_button()
+
+        my_lead_page.switch_to_page_2()
+
+        my_lead_page.click_2_add_question_button()
+        my_lead_page.fill_2_question('aaa')
+        my_lead_page.fill_2_answer_1('aaa')
+        my_lead_page.fill_2_answer_2('aaa')
+
+        my_lead_page.click_continue()
+
+        my_lead_page.click_continue()
+
+        my_lead_page.click_4_click_necessary_question()
+        my_lead_page.check_4_warning_present()
+
+    def test_draft(self, login_page, login_data):
+        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
+        my_lead_page.open_lead_tab()
+        my_lead_page.click_new_button()
+
+        my_lead_page.switch_to_page_2()
+
+        my_lead_page.click_continue()
+
+        my_lead_page.click_continue()
+
+        my_lead_page.click_popup_close_button()
+        my_lead_page.check_draft_present()
+
+    def test_4_email_input_popup(self, login_page, login_data):
+        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
+        my_lead_page.open_lead_tab()
+        my_lead_page.click_new_button()
+
+        my_lead_page.switch_to_page_2()
+
+        my_lead_page.click_continue()
+
+        my_lead_page.click_continue()
+
+        my_lead_page.click_4_button_email()
+        my_lead_page.check_4_input_email_notification_present()
+
+    def test_error_4_email(self, login_page, login_data):
+        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
+        my_lead_page.open_lead_tab()
+        my_lead_page.click_new_button()
+
+        my_lead_page.switch_to_page_2()
+
+        my_lead_page.click_continue()
+
+        my_lead_page.click_continue()
+
+        my_lead_page.fill_4_email('aaaaaaa')
+
+        my_lead_page.click_save()
+
+        my_lead_page.check_error_4_email_message('Некорректный email адрес')
+
+    def test_error_4_maximum_symbols(self, login_page, login_data):
+        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
+        my_lead_page.open_lead_tab()
+        my_lead_page.click_new_button()
+
+        my_lead_page.switch_to_page_2()
+
+        my_lead_page.click_continue()
+
+        my_lead_page.click_continue()
+
+        my_lead_page.fill_4_fio('a'*257)
+        my_lead_page.fill_4_address('a'*257)
+        my_lead_page.fill_4_inn('a'*33)
+
+        my_lead_page.click_save()
+
+        my_lead_page.check_error_4_fio_message('Превышена максимальная длина поля')
+        my_lead_page.check_error_4_address_message('Превышена максимальная длина поля')
+        my_lead_page.check_error_4_inn_message('Превышена максимальная длина поля')
+
+    def test_error_4_empty_fields(self, login_page, login_data):
+        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
+        my_lead_page.open_lead_tab()
+        my_lead_page.click_new_button()
+
+        my_lead_page.switch_to_page_2()
+
+        my_lead_page.click_continue()
+
+        my_lead_page.click_continue()
+
+        my_lead_page.click_save()
+
+        my_lead_page.check_error_4_fio_message('Обязательное поле')
+        my_lead_page.check_error_4_address_message('Обязательное поле')
+
+    def test_save_lead_form(self, login_page, login_data):
+        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
+        my_lead_page.open_lead_tab()
+        my_lead_page.click_new_button()
+
+        my_lead_page.switch_to_page_2()
+
+        my_lead_page.click_continue()
+
+        my_lead_page.click_continue()
+
+        my_lead_page.fill_4_fio('a')
+        my_lead_page.fill_4_address('a')
+
+        my_lead_page.click_save()
+
+        my_lead_page.check_popup_closed()
 
 
 
