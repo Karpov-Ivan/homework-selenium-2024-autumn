@@ -1,6 +1,7 @@
 import pytest
 import re
 from _pytest.fixtures import FixtureRequest
+from selenium.common import TimeoutException
 
 from hw.code.ui.pages.login_page import LoginPage
 from ui.pages.base_page import PageNotOpenedException
@@ -24,7 +25,7 @@ class BaseCase:
             pattern = re.compile(url)
             WebDriverWait(self.driver, timeout).until(EC.url_matches(pattern))
             return True
-        except:
+        except TimeoutException:
             raise PageNotOpenedException(
                 f"{url} did not open in {timeout} sec, current url {self.driver.current_url}"
             )

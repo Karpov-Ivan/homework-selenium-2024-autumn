@@ -22,7 +22,7 @@ class TestBudgetPage(BaseCase):
         my_budget_page = login_page.login(login_data["username"], login_data["password"])
         my_budget_page.open_budget_tab()
 
-        assert my_budget_page.is_opened()
+        assert my_budget_page.is_opened(), "The budget tab did not open as expected."
 
     def test_recharge_button_opens_popup(self, login_page, login_data):
         my_budget_page = login_page.login(login_data["username"], login_data["password"])
@@ -45,7 +45,7 @@ class TestBudgetPage(BaseCase):
         my_budget_page.click_recharge_button()
 
         my_budget_page.fill_payment_amount("abc")
-        assert my_budget_page.get_text_from_input() == ""
+        assert my_budget_page.get_text_from_input() == "", "Non-numeric input was not cleared as expected."
 
     def test_recharge_amount_too_low(self, login_page, login_data):
         my_budget_page = login_page.login(login_data["username"], login_data["password"])
@@ -85,7 +85,9 @@ class TestBudgetPage(BaseCase):
         my_budget_page.click_recharge_button()
 
         my_budget_page.fill_payment_amount_without_vat("abc")
-        assert my_budget_page.get_text_from_input_without_vat() == ""
+        assert my_budget_page.get_text_from_input_without_vat() == "", (
+            "The non-numeric input was not cleared in the 'without VAT' field."
+        )
 
     def test_numeric_input_without_vat(self, login_page, login_data):
         my_budget_page = login_page.login(login_data["username"], login_data["password"])
@@ -206,4 +208,6 @@ class TestBudgetPage(BaseCase):
         my_budget_page.enter_promo_code(invalid_promo_code)
         my_budget_page.click_activate_promo_code_button()
 
-        assert my_budget_page.is_error_message_displayed()
+        assert my_budget_page.is_error_message_displayed(), (
+            "Expected an error message to inform the user about the invalid promo code."
+        )
