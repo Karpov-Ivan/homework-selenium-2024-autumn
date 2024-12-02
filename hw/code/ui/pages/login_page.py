@@ -24,7 +24,7 @@ class LoginPage(BasePage):
     def click_continue_button(self):
         self.click(self.locators.CONTINUE_BUTTON)
 
-    def click_other_button(self):
+    def click_in_another_way_button(self):
         self.click(self.locators.OTHER_BUTTON)
 
     def click_password_button(self):
@@ -44,7 +44,7 @@ class LoginPage(BasePage):
         self.enter_username(username)
         self.click_next_button()
         self.click_continue_button()
-        self.click_other_button()
+        self.click_in_another_way_button()
         self.click_password_button()
         self.enter_password(password)
         self.click_continue_button_2()
