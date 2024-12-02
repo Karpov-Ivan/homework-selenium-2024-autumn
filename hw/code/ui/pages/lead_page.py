@@ -2,6 +2,8 @@ import time
 from selenium.webdriver.support.wait import WebDriverWait
 from .base_page import BasePage
 from ..locators.lead_page_locators import LeadPageLocators
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium import webdriver
 
 
 class LeadPage(BasePage):
@@ -23,12 +25,9 @@ class LeadPage(BasePage):
     def click_popup_close_button(self):
         self.click(LeadPageLocators.CLOSE_BUTTON_LOCATOR)
 
-    def click_outside(self):
-        self.click(LeadPageLocators.VK_ADS_LOGO)
-
     def check_popup_closed(self):
         time.sleep(1)
-        assert not self.is_element_present(LeadPageLocators.POPUP_NEW), "New lead form popup not displayed"
+        assert not self.is_element_present(LeadPageLocators.POPUP_NEW), "New lead form popup displayed"
 
     def fill_1_name(self, name):
         self.enter_text(LeadPageLocators.INPUT_1_NAME, name)
@@ -38,6 +37,15 @@ class LeadPage(BasePage):
 
     def fill_1_description(self, description):
         self.enter_text(LeadPageLocators.INPUT_1_DESCRIPTION, description)
+
+    def fill_1_big_description(self, description):
+        self.enter_text(LeadPageLocators.INPUT_1_BIG_DESCRIPTION, description)
+
+    def fill_1_bonus(self, description):
+        self.enter_text(LeadPageLocators.INPUT_1_BONUS, description)
+
+    def fill_1_skidka(self, description):
+        self.enter_text(LeadPageLocators.INPUT_1_AMOUNT, description)
 
     def click_1_compact_button(self):
         self.click(LeadPageLocators.BUTTON_COMPACT)
@@ -54,97 +62,226 @@ class LeadPage(BasePage):
     def click_1_bonus_button(self):
         self.click(LeadPageLocators.BUTTON_BONUS)
 
+    def click_1_percent_button(self):
+        self.click(LeadPageLocators.BUTTON_PERCENT)
+
     def click_cancel(self):
         self.click(LeadPageLocators.BUTTON_CANCEL)
 
     def click_continue(self):
         self.click(LeadPageLocators.BUTTON_CONTINUE)
 
+    def click_back(self):
+        self.click(LeadPageLocators.BUTTON_BACK)
+
     def click_popup_close_button(self):
         self.click(LeadPageLocators.CLOSE_BUTTON_LOCATOR)
+
+    def check_heading_present(self):
+        assert self.is_element_present(LeadPageLocators.INPUT_1_HEADING), "Heading field not displayed"
 
     def check_big_description_present(self):
         assert self.is_element_present(LeadPageLocators.INPUT_1_BIG_DESCRIPTION), "Big description field not displayed"
 
     def check_skidka_present(self):
         assert self.is_element_present(LeadPageLocators.BUTTON_SKIDKA), "Bonus form not displayed"
+        assert not self.is_element_present(LeadPageLocators.INPUT_1_BONUS), "Bonus field not displayed"
 
-    def check_error_message(self, expected_message):
-        error = self.find(LeadPageLocators.ERROR_MESSAGE)
+    def check_bonus_present(self):
+        assert self.is_element_present(LeadPageLocators.INPUT_1_BONUS), "Bonus field not displayed"
+
+    def check_error_1_name_message(self, expected_message):
+        error = self.find(LeadPageLocators.ERROR_1_NAME)
         assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
 
-    def click_button_help(self):
-        self.click(LeadPageLocators.ICON_HELP)
+    def check_error_1_description_message(self, expected_message):
+        error = self.find(LeadPageLocators.ERROR_1_DESCRIPTION)
+        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
 
-    def check_help_popup_present(self):
-        assert self.is_element_present(LeadPageLocators.POPUP_HEADER), "Popup header not found"
+    def check_error_1_heading_message(self, expected_message):
+        error = self.find(LeadPageLocators.ERROR_1_HEADING)
+        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
 
-    def click_link_help_popup(self):
-        self.click(LeadPageLocators.POPUP_LINK)
+    def check_error_1_big_description_message(self, expected_message):
+        error = self.find(LeadPageLocators.ERROR_1_BIG_DESCRIPTION)
+        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
 
-    def check_link_help_popup(self, expected_url):
-        current_window = self.driver.current_window_handle
+    def check_error_1_bonus_message(self, expected_message):
+        error = self.find(LeadPageLocators.ERROR_1_BONUS)
+        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
 
-        self.click_link_help_popup()
+    def check_error_1_skidka_message_for_101(self):
+        assert self.is_element_present(LeadPageLocators.ERROR_1_SKIDKA_FOR_101), "No error for more than 100 percent"
 
-        WebDriverWait(self.driver, 10).until(lambda driver: len(driver.window_handles) > 1)
+    def check_error_1_skidka_message_for_0(self):
+        assert self.is_element_present(LeadPageLocators.ERROR_1_SKIDKA_FOR_0), "No error for 0 skidka"
 
-        for window_handle in self.driver.window_handles:
-            if window_handle != current_window:
-                self.driver.switch_to.window(window_handle)
-                break
+    def check_error_1_logo_message(self, expected_message):
+        error = self.find(LeadPageLocators.ERROR_1_LOGO)
+        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
 
-        WebDriverWait(self.driver, 10).until(lambda driver: driver.current_url == expected_url)
-        assert self.driver.current_url == expected_url, f"Expected URL to be {expected_url}, but got {self.driver.current_url}"
+    def switch_to_page_2(self):
+        self.click(LeadPageLocators.BUTTON_LOGO)
+        self.click(LeadPageLocators.ITEM_LOGO)
 
-    def fill_payment_amount_without_vat(self, decimal):
-        self.enter_text(LeadPageLocators.INPUT_PAYMENT_AMOUNT_WITHOUT_VAT, decimal)
+        time.sleep(1)
 
-    def get_text_from_input_without_vat(self):
-        return self.get_element_value(LeadPageLocators.INPUT_PAYMENT_AMOUNT_WITHOUT_VAT)
+        self.fill_1_name('aa')
+        self.fill_1_heading('aa')
+        self.fill_1_description('aa')
 
-    def is_error_present(self):
-        return self.is_element_present(LeadPageLocators.ERROR_MESSAGE)
+        self.click_continue()
 
-    def click_recharge_button_popup(self):
-        self.click(LeadPageLocators.BUTTON_RECHARGE_POPUP)
+    def click_2_add_question_button(self):
+        self.click(LeadPageLocators.BUTTON_2_ADD_QUESTION)
 
-    def click_button_help_2(self):
-        self.click(LeadPageLocators.ICON_HELP_2)
+    def click_2_add_contact_button(self):
+        self.click(LeadPageLocators.BUTTON_2_ADD_CONTACT)
+    
+    def click_2_bin(self):
+        self.click(LeadPageLocators.BUTTON_2_BIN)
 
-    def check_help_popup_present_2(self):
-        assert self.is_element_present(LeadPageLocators.POPUP_HEADER_2), "Popup header not found"
+    def click_2_bin_name(self):
+        self.click(LeadPageLocators.BUTTON_2_BIN_NAME)
 
-    def open_bonus_program_tab(self):
-        self.click(LeadPageLocators.TAB_BONUS_PROGRAM)
+    def click_2_bin_phone(self):
+        self.click(LeadPageLocators.BUTTON_2_BIN_PHONE)
 
-    def check_element_bonus_program_page(self):
-        assert self.is_element_present(
-            LeadPageLocators.ACTIVATE_PROMOCODE_BUTTON), "Activate Promocode button is not present"
+    def click_2_shablon(self):
+        self.click(LeadPageLocators.BUTTON_2_SHABLON)
 
-        assert self.is_element_present(
-            LeadPageLocators.ACTIVATED_PROMOCODES_HEADER), "'Activated Promocodes' header is not present"
+    def click_2_nothing_answer(self):
+        self.click(LeadPageLocators.BUTTON_2_NOTHING_ANSWER)
 
-        assert self.is_element_present(
-            LeadPageLocators.PERSONAL_OFFERS_HEADER), "'Personal Offers' header is not present"
+    def click_2_answer_type(self):
+        self.click(LeadPageLocators.BUTTON_2_ANSWER_TYPE)
 
-    def click_activate_promocode(self):
-        self.click(LeadPageLocators.ACTIVATE_PROMOCODE_BUTTON)
+    def click_2_free_answer(self):
+        self.click(LeadPageLocators.BUTTON_2_FREE_ANSWER)
 
-    def check_activate_promocode_popup(self):
-        assert self.is_element_present(LeadPageLocators.POPUP_HEADER), "Pop-up window not opened"
+    def click_2_bin_answer(self):
+        self.click(LeadPageLocators.BUTTON_2_BIN_ANSWER)
 
-    def click_close_activate_promocode(self):
-        self.click(LeadPageLocators.CLOSE_BUTTON_LOCATOR)
+    def click_2_add_answer(self):
+        self.click(LeadPageLocators.BUTTON_2_ADD_ANSWER)
 
-    def enter_promo_code(self, promo_code):
-        self.enter_text(LeadPageLocators.INPUT_PROMOCODE, promo_code)
+    def check_error_2_question_message(self, expected_message):
+        error_icon = self.find(LeadPageLocators.ERROR_2_QUESTION_ICON)
 
-    def get_promo_code_input_value(self):
-        return self.get_element_value(LeadPageLocators.INPUT_PROMOCODE)
+        action = ActionChains(self.driver)
+        action.move_to_element(error_icon).perform()
 
-    def click_activate_promo_code_button(self):
-        self.click(LeadPageLocators.BUTTON_PROMOCODE)
+        error = self.find(LeadPageLocators.ERROR_2_QUESTION_TEXT)
+        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
 
-    def is_error_message_displayed(self):
-        return self.is_element_present(LeadPageLocators.ERROR_MESSAGE_PROMOCODE)
+    def check_error_2_contact_message(self, expected_message):
+        error = self.find(LeadPageLocators.ERROR_2_CONTACT)
+        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
+
+    def check_question_closed(self):
+        time.sleep(1)
+        assert not self.is_element_present(LeadPageLocators.POPUP_QUESTION), "Question form popup displayed"
+
+    def check_3_answer_present(self):
+        time.sleep(1)
+        assert self.is_element_present(LeadPageLocators.INPUT_2_ANSWER_3), "3 answer is not displayed"
+
+    def check_3_answer_not_present(self):
+        time.sleep(1)
+        assert not self.is_element_present(LeadPageLocators.INPUT_2_ANSWER_3), "3 answer is displayed"
+
+    def check_contact_present(self):
+        time.sleep(1)
+        assert self.is_element_present(LeadPageLocators.BUTTON_2_BIN_NAME), "Contact is not displayed"
+
+    def check_3_answer_value(self, expected_value):
+        input = self.find(LeadPageLocators.INPUT_2_ANSWER_3)
+        assert input.get_attribute("value") == expected_value, f"Expected '{expected_value}', got '{input.text}'"
+
+    def check_no_answer_present(self):
+        time.sleep(1)
+        assert not self.is_element_present(LeadPageLocators.INPUT_2_ANSWER_1), "3 answer is not displayed"
+
+    def check_2_popup_opened(self):
+        assert self.is_element_present(LeadPageLocators.POPUP_CONTACT), "Contact form popup not displayed"
+
+    def click_popup_list_button(self):
+        self.click(LeadPageLocators.POPUP_LIST_BUTTON)
+
+    def click_popup_add_button(self):
+        self.click(LeadPageLocators.POPUP_ADD_BUTTON)
+
+    def check_2_popup_add_contact(self):
+        assert self.is_element_present(LeadPageLocators.BUTTON_2_BIN_CITY), "Contact form popup not displayed"
+
+    def check_3_heading_present(self):
+        time.sleep(1)
+        assert self.is_element_present(LeadPageLocators.INPUT_3_HEADING), "Heading is not displayed"
+
+    def check_3_site_present(self):
+        time.sleep(1)
+        assert self.is_element_present(LeadPageLocators.INPUT_3_SITE), "Site is not displayed"
+
+    def check_3_phone_present(self):
+        time.sleep(1)
+        assert self.is_element_present(LeadPageLocators.INPUT_3_PHONE), "Phone is not displayed"
+
+    def check_3_promo_present(self):
+        time.sleep(1)
+        assert self.is_element_present(LeadPageLocators.INPUT_3_PROMO), "Promo is not displayed"
+
+    def click_3_click_site(self):
+        self.click(LeadPageLocators.BUTTON_3_SITE)
+
+    def click_3_click_phone(self):
+        self.click(LeadPageLocators.BUTTON_3_PHONE)
+
+    def click_3_click_promo(self):
+        self.click(LeadPageLocators.BUTTON_3_PROMO)
+
+    def fill_3_heading(self, heading):
+        self.enter_text(LeadPageLocators.INPUT_3_HEADING, heading)
+
+    def fill_3_heading_alt(self, heading):
+        self.enter_text(LeadPageLocators.INPUT_3_HEADING_ALT, heading)
+        time.sleep(1)
+
+    def clear_3_heading(self):
+        heading=self.find(LeadPageLocators.INPUT_3_HEADING)
+        heading.clear()
+
+    def fill_3_description(self, description):
+        self.enter_text(LeadPageLocators.INPUT_3_DESCRIPTION, description)
+
+    def fill_3_site(self, site):
+        self.enter_text(LeadPageLocators.INPUT_3_SITE, site)
+        time.sleep(1)
+
+    def fill_3_phone(self, phone):
+        self.enter_text(LeadPageLocators.INPUT_3_PHONE, phone)
+        time.sleep(1)
+
+    def fill_3_promo(self, promo):
+        self.enter_text(LeadPageLocators.INPUT_3_PROMO, promo)
+
+    def check_error_3_heading_message(self, expected_message):
+        error = self.find(LeadPageLocators.ERROR_3_HEADING)
+        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
+
+    def check_error_3_description_message(self, expected_message):
+        error = self.find(LeadPageLocators.ERROR_3_DESCRIPTION)
+        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
+
+    def check_error_3_site_message(self, expected_message):
+        error = self.find(LeadPageLocators.ERROR_3_SITE)
+        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
+
+    def check_error_3_phone_message(self, expected_message):
+        error = self.find(LeadPageLocators.ERROR_3_PHONE)
+        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
+
+    def check_error_3_promo_message(self, expected_message):
+        error = self.find(LeadPageLocators.ERROR_3_PROMO)
+        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
+
+    
