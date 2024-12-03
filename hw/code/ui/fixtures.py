@@ -51,8 +51,8 @@ def driver(config):
 @pytest.fixture
 def login_data():
     return {
-        "username": os.getenv("USERNAME"),
-        "password": os.getenv("PASSWORD")
+        "username": os.getenv("username"),
+        "password": os.getenv("password")
     }
 
 @pytest.fixture

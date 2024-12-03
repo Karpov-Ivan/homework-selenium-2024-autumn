@@ -7,8 +7,8 @@ import base_case
 @pytest.fixture(scope='session')
 def credentials():
     return {
-        "login": os.getenv("LOGIN"),
-        "password": os.getenv("PASSWORD")
+        "login": os.getenv("username"),
+        "password": os.getenv("password")
     }
 
 class TestAudience(base_case.BaseCase):
