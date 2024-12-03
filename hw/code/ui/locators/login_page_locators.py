@@ -15,3 +15,4 @@ class LoginPageLocators:
     PASSWORD_INPUT = (By.NAME, "password")
     CONTINUE_BUTTON_2 = (By.XPATH, '//button[span/span/span[text()="Продолжить"]]')
     CONTINUE_BUTTON_MAIN = (By.XPATH, "//button[span[text()='Войти']]")
+
