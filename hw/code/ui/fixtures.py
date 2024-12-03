@@ -1,3 +1,5 @@
+import os
+
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -46,6 +48,12 @@ def driver(config):
     yield driver
     driver.quit()
 
+@pytest.fixture
+def login_data():
+    return {
+        "username": os.getenv("USERNAME"),
+        "password": os.getenv("PASSWORD")
+    }
 
 @pytest.fixture
 def base_page(driver):
@@ -61,11 +69,11 @@ def auth_page(driver):
     driver.get(AuthPage.url)
     return AuthPage(driver=driver)
 
-
 @pytest.fixture
-def budget_page(driver):
-    driver.get(BudgetPage.url)
-    return BudgetPage(driver=driver)
+def budget_page(login_page, login_data):
+    my_budget_page = login_page.login(login_data["username"], login_data["password"])
+    my_budget_page.open_budget_tab()
+    return my_budget_page
 
 @pytest.fixture
 def lead_page(driver):
