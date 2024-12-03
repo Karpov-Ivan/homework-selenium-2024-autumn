@@ -23,7 +23,7 @@ class BudgetPageLocators:
     ACTIVATED_PROMOCODES_HEADER = (By.XPATH, "//span[contains(@class, 'BonusProgram_header') and text()='Активированные промокоды']")
     PERSONAL_OFFERS_HEADER = (By.XPATH, "//span[contains(@class, 'BonusProgram_header') and text()='Персональные акции']")
 
-    POPUP_HEADER = (By.XPATH, "//h2[contains(@class, 'ActivatePromoCodeModal_title') and text()='Активация промокода']")
+    POPUP_HEADER_PROMOCODE = (By.XPATH, "//h2[contains(@class, 'ActivatePromoCodeModal_title') and text()='Активация промокода']")
     INPUT_PROMOCODE = (By.CSS_SELECTOR, ".vkuiTypography.vkuiInput__el.vkuiText.vkuiText--sizeY-none")
     BUTTON_PROMOCODE = (By.XPATH, "//button[@type='submit' and contains(@class, 'vkuiButton') and span/span[text()='Активировать']]")
-    ERROR_MESSAGE_PROMOCODE = (By.XPATH, "//span[@role='alert' and contains(@class, 'vkuiFormItem__bottom') and text()='Промокод не может быть активирован']")
+    ERROR_MESSAGE_PROMOCODE = (By.CSS_SELECTOR, ".vkuiTypography.vkuiTypography--normalize.vkuiFormItem__bottom.vkuiFootnote")

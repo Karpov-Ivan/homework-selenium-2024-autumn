@@ -35,23 +35,43 @@ class BasePage(object):
 
     @allure.step('Search')
     def search(self, query):
-        elem = self.find(self.locators.QUERY_LOCATOR_ID)
-        elem.send_keys(query)
-        go_button = self.find(self.locators.GO_BUTTON_LOCATOR)
-        go_button.click()
-        self.my_assert()
+        try:
+            elem = self.find(self.locators.QUERY_LOCATOR_ID)
+            elem.send_keys(query)
+            go_button = self.find(self.locators.GO_BUTTON_LOCATOR)
+            go_button.click()
+            self.my_assert()
+        except TimeoutException as e:
+            allure.attach(
+                body=f"Element not found: {str(e)}",
+                name="TimeoutException details",
+                attachment_type=allure.attachment_type.TEXT
+            )
+            raise
+        except AssertionError as e:
+            allure.attach(
+                body="Expected value did not match actual value",
+                name="Assertion details",
+                attachment_type=allure.attachment_type.TEXT
+            )
+            raise
 
-    @allure.step("Step 1")
     def my_assert(self):
         assert 1 == 1
 
-
     @allure.step('Click')
     def click(self, locator, timeout=None) -> WebElement:
-        elem = self.wait(timeout).until(EC.visibility_of_element_located(locator))
-        elem = self.wait(timeout).until(EC.element_to_be_clickable(locator))
-        elem.click()
-        return elem
+        try:
+            elem = self.wait(timeout).until(EC.element_to_be_clickable(locator))
+            elem.click()
+            return elem
+        except TimeoutException as e:
+            allure.attach(
+                body=f"Could not click element: {str(e)}",
+                name="TimeoutException details",
+                attachment_type=allure.attachment_type.TEXT
+            )
+            raise
 
     def enter_text(self, locator, text, timeout=None):
         element = self.wait(timeout).until(EC.visibility_of_element_located(locator))

@@ -12,7 +12,7 @@ class BudgetPage(BasePage):
         self.driver = driver
 
     def open_budget_tab(self):
-        self.click(self.locators.TAB_BUDGET)
+        self.click(self.locators.TAB_BUDGET, 10)
 
     def click_recharge_button(self):
         self.click(BudgetPageLocators.BUTTON_RECHARGE)
@@ -21,8 +21,7 @@ class BudgetPage(BasePage):
         assert self.is_element_present(BudgetPageLocators.POPUP_RECHARGE), "Recharge popup not displayed"
 
     def check_popup_closed(self):
-        time.sleep(1)
-        assert not self.is_element_present(BudgetPageLocators.POPUP_RECHARGE), "Recharge popup not displayed"
+        assert not self.is_element_present(BudgetPageLocators.POPUP_RECHARGE, 10), "Recharge popup not displayed"
 
     def fill_payment_amount(self, amount):
         self.enter_text(BudgetPageLocators.INPUT_PAYMENT_AMOUNT, amount)
@@ -96,7 +95,7 @@ class BudgetPage(BasePage):
         self.click(BudgetPageLocators.ACTIVATE_PROMOCODE_BUTTON)
 
     def check_activate_promocode_popup(self):
-        assert self.is_element_present(BudgetPageLocators.POPUP_HEADER), "Pop-up window not opened"
+        assert self.is_element_present(BudgetPageLocators.POPUP_HEADER_PROMOCODE), "Pop-up window not opened"
 
     def click_close_activate_promocode(self):
         self.click(BudgetPageLocators.CLOSE_BUTTON_LOCATOR)
