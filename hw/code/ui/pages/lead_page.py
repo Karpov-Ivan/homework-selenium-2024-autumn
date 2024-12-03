@@ -13,8 +13,14 @@ class LeadPage(BasePage):
     def __init__(self, driver):
         self.driver = driver
 
+    # def send_logo(self):
+    #     self.click(LeadPageLocators.BUTTON_LOGO)
+    #     logo_input=self.find(LeadPageLocators.INPUT_1_LOGO)
+    #     logo_input.send_keys('/hw/code/files/photo.png')
+    #     self.click(LeadPageLocators.ITEM_LOGO)
+
     def open_lead_tab(self):
-        self.click(self.locators.TAB_LEAD)
+        self.click(self.locators.TAB_LEAD, 10)
 
     def click_new_button(self):
         self.click(LeadPageLocators.BUTTON_NEW)
@@ -26,11 +32,10 @@ class LeadPage(BasePage):
         self.click(LeadPageLocators.CLOSE_BUTTON_LOCATOR)
 
     def check_popup_closed(self):
-        time.sleep(1)
-        assert not self.is_element_present(LeadPageLocators.POPUP_NEW), "New lead form popup displayed"
+        assert not self.is_element_present(LeadPageLocators.POPUP_NEW, 10), "New lead form popup displayed"
 
     def fill_1_name(self, name):
-        self.enter_text(LeadPageLocators.INPUT_1_NAME, name)
+        self.enter_text(LeadPageLocators.INPUT_1_NAME, name, 10)
 
     def fill_1_heading(self, heading):
         self.enter_text(LeadPageLocators.INPUT_1_HEADING, heading)
@@ -44,7 +49,7 @@ class LeadPage(BasePage):
     def fill_1_bonus(self, description):
         self.enter_text(LeadPageLocators.INPUT_1_BONUS, description)
 
-    def fill_1_skidka(self, description):
+    def fill_1_discount(self, description):
         self.enter_text(LeadPageLocators.INPUT_1_AMOUNT, description)
 
     def click_1_compact_button(self):
@@ -56,7 +61,7 @@ class LeadPage(BasePage):
     def click_1_magnet_button(self):
         self.click(LeadPageLocators.BUTTON_MAGNET)
 
-    def click_1_skidka_button(self):
+    def click_1_discount_button(self):
         self.click(LeadPageLocators.BUTTON_SKIDKA)
 
     def click_1_bonus_button(self):
@@ -86,7 +91,7 @@ class LeadPage(BasePage):
     def check_big_description_present(self):
         assert self.is_element_present(LeadPageLocators.INPUT_1_BIG_DESCRIPTION), "Big description field not displayed"
 
-    def check_skidka_present(self):
+    def check_discount_present(self):
         assert self.is_element_present(LeadPageLocators.BUTTON_SKIDKA), "Bonus form not displayed"
         assert not self.is_element_present(LeadPageLocators.INPUT_1_BONUS), "Bonus field not displayed"
 
@@ -113,11 +118,11 @@ class LeadPage(BasePage):
         error = self.find(LeadPageLocators.ERROR_1_BONUS)
         assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
 
-    def check_error_1_skidka_message_for_101(self):
+    def check_error_1_discount_message_for_101(self):
         assert self.is_element_present(LeadPageLocators.ERROR_1_SKIDKA_FOR_101), "No error for more than 100 percent"
 
-    def check_error_1_skidka_message_for_0(self):
-        assert self.is_element_present(LeadPageLocators.ERROR_1_SKIDKA_FOR_0), "No error for 0 skidka"
+    def check_error_1_discount_message_for_0(self):
+        assert self.is_element_present(LeadPageLocators.ERROR_1_SKIDKA_FOR_0), "No error for 0 discount"
 
     def check_error_1_logo_message(self, expected_message):
         error = self.find(LeadPageLocators.ERROR_1_LOGO)
@@ -126,8 +131,6 @@ class LeadPage(BasePage):
     def switch_to_page_2(self):
         self.click(LeadPageLocators.BUTTON_LOGO)
         self.click(LeadPageLocators.ITEM_LOGO)
-
-        time.sleep(1)
 
         self.fill_1_name('aa')
         self.fill_1_heading('aa')
@@ -191,28 +194,23 @@ class LeadPage(BasePage):
         assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
 
     def check_question_closed(self):
-        time.sleep(1)
-        assert not self.is_element_present(LeadPageLocators.POPUP_QUESTION), "Question form popup displayed"
+        assert not self.is_element_present(LeadPageLocators.POPUP_QUESTION, 10), "Question form popup displayed"
 
     def check_3_answer_present(self):
-        time.sleep(1)
-        assert self.is_element_present(LeadPageLocators.INPUT_2_ANSWER_3), "3 answer is not displayed"
+        assert self.is_element_present(LeadPageLocators.INPUT_2_ANSWER_3, 10), "3 answer is not displayed"
 
     def check_3_answer_not_present(self):
-        time.sleep(1)
-        assert not self.is_element_present(LeadPageLocators.INPUT_2_ANSWER_3), "3 answer is displayed"
+        assert not self.is_element_present(LeadPageLocators.INPUT_2_ANSWER_3, 10), "3 answer is displayed"
 
     def check_contact_present(self):
-        time.sleep(1)
-        assert self.is_element_present(LeadPageLocators.BUTTON_2_BIN_NAME), "Contact is not displayed"
+        assert self.is_element_present(LeadPageLocators.BUTTON_2_BIN_NAME, 10), "Contact is not displayed"
 
     def check_3_answer_value(self, expected_value):
         input = self.find(LeadPageLocators.INPUT_2_ANSWER_3)
         assert input.get_attribute("value") == expected_value, f"Expected '{expected_value}', got '{input.text}'"
 
     def check_no_answer_present(self):
-        time.sleep(1)
-        assert not self.is_element_present(LeadPageLocators.INPUT_2_ANSWER_1), "3 answer is not displayed"
+        assert not self.is_element_present(LeadPageLocators.INPUT_2_ANSWER_1, 10), "3 answer is not displayed"
 
     def check_2_popup_opened(self):
         assert self.is_element_present(LeadPageLocators.POPUP_CONTACT), "Contact form popup not displayed"
@@ -227,20 +225,16 @@ class LeadPage(BasePage):
         assert self.is_element_present(LeadPageLocators.BUTTON_2_BIN_CITY), "Contact form popup not displayed"
 
     def check_3_heading_present(self):
-        time.sleep(1)
-        assert self.is_element_present(LeadPageLocators.INPUT_3_HEADING), "Heading is not displayed"
+        assert self.is_element_present(LeadPageLocators.INPUT_3_HEADING, 10), "Heading is not displayed"
 
     def check_3_site_present(self):
-        time.sleep(1)
-        assert self.is_element_present(LeadPageLocators.INPUT_3_SITE), "Site is not displayed"
+        assert self.is_element_present(LeadPageLocators.INPUT_3_SITE, 10), "Site is not displayed"
 
     def check_3_phone_present(self):
-        time.sleep(1)
-        assert self.is_element_present(LeadPageLocators.INPUT_3_PHONE), "Phone is not displayed"
+        assert self.is_element_present(LeadPageLocators.INPUT_3_PHONE, 10), "Phone is not displayed"
 
     def check_3_promo_present(self):
-        time.sleep(1)
-        assert self.is_element_present(LeadPageLocators.INPUT_3_PROMO), "Promo is not displayed"
+        assert self.is_element_present(LeadPageLocators.INPUT_3_PROMO, 10), "Promo is not displayed"
 
     def click_3_click_site(self):
         self.click(LeadPageLocators.BUTTON_3_SITE)
@@ -256,7 +250,6 @@ class LeadPage(BasePage):
 
     def fill_3_heading_alt(self, heading):
         self.enter_text(LeadPageLocators.INPUT_3_HEADING_ALT, heading)
-        time.sleep(1)
 
     def clear_3_heading(self):
         heading=self.find(LeadPageLocators.INPUT_3_HEADING)
@@ -267,11 +260,9 @@ class LeadPage(BasePage):
 
     def fill_3_site(self, site):
         self.enter_text(LeadPageLocators.INPUT_3_SITE, site)
-        time.sleep(1)
 
     def fill_3_phone(self, phone):
         self.enter_text(LeadPageLocators.INPUT_3_PHONE, phone)
-        time.sleep(1)
 
     def fill_3_promo(self, promo):
         self.enter_text(LeadPageLocators.INPUT_3_PROMO, promo)
@@ -297,24 +288,19 @@ class LeadPage(BasePage):
         assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
 
     def check_4_button_email_present(self):
-        time.sleep(1)
-        assert self.is_element_present(LeadPageLocators.BUTTON_4_EMAIL), "Button for email notification is not displayed"
+        assert self.is_element_present(LeadPageLocators.BUTTON_4_EMAIL, 10), "Button for email notification is not displayed"
 
     def check_4_input_email_notification_present(self):
-        time.sleep(1)
-        assert self.is_element_present(LeadPageLocators.INPUT_4_EMAIL_FOR_NOTIFICATION), "Input for email notification is not displayed"
+        assert self.is_element_present(LeadPageLocators.INPUT_4_EMAIL_FOR_NOTIFICATION, 10), "Input for email notification is not displayed"
 
     def check_4_modal_present(self):
-        time.sleep(1)
-        assert self.is_element_present(LeadPageLocators.MODAL_PAGE), "Modal page is not displayed"
+        assert self.is_element_present(LeadPageLocators.MODAL_PAGE, 10), "Modal page is not displayed"
 
     def check_4_warning_present(self):
-        time.sleep(1)
-        assert self.is_element_present(LeadPageLocators.MODAL_WARNING), "Warning is not displayed"
+        assert self.is_element_present(LeadPageLocators.MODAL_WARNING, 10), "Warning is not displayed"
 
     def check_draft_present(self):
-        time.sleep(1)
-        assert self.is_element_present(LeadPageLocators.MODAL_DRAFT), "Draft is not displayed"
+        assert self.is_element_present(LeadPageLocators.MODAL_DRAFT, 10), "Draft is not displayed"
 
     def click_4_click_necessary_question(self):
         self.click(LeadPageLocators.BUTTON_4_NECESSARY_QUESTIONS)

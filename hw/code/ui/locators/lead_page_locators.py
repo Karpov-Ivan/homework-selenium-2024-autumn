@@ -14,6 +14,7 @@ class LeadPageLocators:
     INPUT_1_4 = (By.XPATH, "(//input[@class='vkuiTypography vkuiInput__el vkuiText vkuiText--sizeY-none'])[4]")
     INPUT_1_AMOUNT = (By.XPATH, "//input[@value='500']")
     INPUT_1_BONUS = (By.XPATH, "//input[@placeholder='Бонус']")
+    INPUT_1_LOGO = (By.XPATH, "//input[@accept='.jpg,.jpeg,.png,.mp4,.mpeg,.avi,.mov,video/quicktime,.zip,.mp3']")
 
     BUTTON_COMPACT = (By.XPATH, "//label[h4[div[span[contains(text(), 'Компактный')]]]]")
     BUTTON_MORE_TEXT = (By.XPATH, "//label[h4[div[span[contains(text(), 'Больше текста')]]]]")

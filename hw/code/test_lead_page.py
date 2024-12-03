@@ -53,6 +53,10 @@ class TestLeadPage(BaseCase):
         my_lead_page.open_lead_tab()
         my_lead_page.click_new_button()
 
+        my_lead_page.send_logo()
+
+        time.wait(10)
+
         my_lead_page.click_1_more_text_button()
 
         my_lead_page.check_big_description_present()
@@ -64,7 +68,7 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.click_1_magnet_button()
 
-        my_lead_page.check_skidka_present()
+        my_lead_page.check_discount_present()
 
     def test_bonus_button_opens_popup(self, login_page, login_data):
         my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
@@ -144,11 +148,11 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.click_1_magnet_button()
         my_lead_page.click_1_percent_button()
-        my_lead_page.fill_1_skidka(101)
+        my_lead_page.fill_1_discount(101)
 
         my_lead_page.click_continue()
 
-        my_lead_page.check_error_1_skidka_message_for_101()
+        my_lead_page.check_error_1_discount_message_for_101()
 
     def test_error_0_percent_1(self, login_page, login_data):
         my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
@@ -157,11 +161,11 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.click_1_magnet_button()
         my_lead_page.click_1_percent_button()
-        my_lead_page.fill_1_skidka(0)
+        my_lead_page.fill_1_discount(0)
 
         my_lead_page.click_continue()
 
-        my_lead_page.check_error_1_skidka_message_for_0()
+        my_lead_page.check_error_1_discount_message_for_0()
 
     def test_switch_to_page_2(self, login_page, login_data):
         my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])

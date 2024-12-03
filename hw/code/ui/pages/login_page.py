@@ -51,11 +51,12 @@ class LoginPage(BasePage):
         self.click_mail()
         self.enter_username(username)
         self.click_next_button()
-        self.click_continue_button()
-        self.click_in_another_way_button()
-        self.click_password_button()
+        self.click_no_vkid_button()
+        #self.click_in_another_way_button()
+        #self.click_password_button()
         self.enter_password(password)
-        self.click_continue_button_2()
+        self.click_continue_mail()
+        #time.sleep(50)
 
         return BudgetPage(self.driver)
     
@@ -71,6 +72,6 @@ class LoginPage(BasePage):
         #self.click_password_button()
         self.enter_password(password)
         self.click_continue_mail()
-        time.sleep(50)
+        #time.sleep(50)
 
         return LeadPage(self.driver)
