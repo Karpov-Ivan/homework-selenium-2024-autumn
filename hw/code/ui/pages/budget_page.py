@@ -40,6 +40,9 @@ class BudgetPage(BasePage):
         self.click(BudgetPageLocators.ICON_HELP)
 
     def check_help_popup_present(self):
+        """
+        Проверка открытия pop-up окна подсказки 'Сумма к оплате'
+        """
         assert self.is_element_present(BudgetPageLocators.POPUP_HEADER), "Popup header not found"
 
     def click_link_help_popup(self):
@@ -76,6 +79,9 @@ class BudgetPage(BasePage):
         self.click(BudgetPageLocators.ICON_HELP_2)
 
     def check_help_popup_present_2(self):
+        """
+        Проверка открытия pop-up окна подсказки 'Сумма, поступающая на ваш счёт'
+        """
         assert self.is_element_present(BudgetPageLocators.POPUP_HEADER_2), "Popup header not found"
 
     def open_bonus_program_tab(self):
