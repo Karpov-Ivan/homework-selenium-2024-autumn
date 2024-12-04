@@ -4,7 +4,9 @@ import allure
 from selenium.common import TimeoutException
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
 
 
 class PageNotOpenedException(Exception):
@@ -92,3 +94,17 @@ class BasePage(object):
     def get_element_value(self, locator, timeout=None):
         element = self.wait(timeout).until(EC.presence_of_element_located(locator))
         return element.get_attribute("value")
+
+    def is_enabled(self, locator, timeout=None):
+        element = self.wait(timeout).until(EC.presence_of_element_located(locator))
+        if element.is_enabled():
+            return True
+        else:
+            return False
+
+    def click_action(self, button):
+        action = ActionChains(self.driver)
+        action.move_to_element(button).click(button).perform()
+
+    def send_keys_tab(self, input, value):
+        input.send_keys(value, Keys.TAB)

@@ -51,7 +51,7 @@ def driver(config):
 @pytest.fixture
 def login_data():
     return {
-        "username": os.getenv("USERNAME"),
+        "username": os.getenv("LOGIN"), # нужно вернуть USERNAME
         "password": os.getenv("PASSWORD")
     }
 
@@ -74,6 +74,12 @@ def budget_page(login_page, login_data):
     my_budget_page = login_page.login(login_data["username"], login_data["password"])
     my_budget_page.open_budget_tab()
     return my_budget_page
+
+@pytest.fixture
+def audience_page(login_page, login_data):
+    my_audience_page = login_page.login_for_audience(login_data["username"], login_data["password"])
+    my_audience_page.open_audience_tab()
+    return my_audience_page
 
 @pytest.fixture
 def lead_page(driver):
