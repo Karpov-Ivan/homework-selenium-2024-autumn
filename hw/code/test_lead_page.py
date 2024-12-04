@@ -19,38 +19,28 @@ def login_data():
 @pytest.mark.usefixtures("setup", "login_data")
 class TestLeadPage(BaseCase):
 
-    def test_open_lead_tab(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_open_lead_tab(self, my_lead_page, login_data):
 
         assert my_lead_page.is_opened()
 
-    def test_new_button_opens_popup(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_new_button_opens_popup(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.check_popup_present()
 
-    def test_close_popup_by_clicking_close_button(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_close_popup_by_clicking_close_button(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.click_popup_close_button()
         my_lead_page.check_popup_closed()
 
-    def test_close_popup_by_clicking_cancel_button(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_close_popup_by_clicking_cancel_button(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.click_cancel()
         my_lead_page.check_popup_closed()
 
-    def test_more_text_button_opens_popup(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_more_text_button_opens_popup(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.send_logo()
@@ -61,18 +51,14 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.check_big_description_present()
 
-    def test_magnet_button_opens_popup(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_magnet_button_opens_popup(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.click_1_magnet_button()
 
         my_lead_page.check_discount_present()
 
-    def test_bonus_button_opens_popup(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_bonus_button_opens_popup(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.click_1_magnet_button()
@@ -80,9 +66,7 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.check_bonus_present()
 
-    def test_error_maximum_symbols_1(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_error_maximum_symbols_1(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.fill_1_name('a'*37)
@@ -108,9 +92,7 @@ class TestLeadPage(BaseCase):
         my_lead_page.click_1_compact_button()
         my_lead_page.check_error_1_description_message('Превышена максимальная длина поля')
 
-    def test_error_empty_fields_1(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_error_empty_fields_1(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.click_1_magnet_button()
@@ -129,9 +111,7 @@ class TestLeadPage(BaseCase):
         my_lead_page.click_1_compact_button()
         my_lead_page.check_error_1_description_message('Обязательное поле')
 
-    def test_error_big_description_perenoc_1(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_error_big_description_perenoc_1(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.click_1_more_text_button()
@@ -141,9 +121,7 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.check_error_1_big_description_message('Используйте перенос строки не больше 2 раз подряд')
 
-    def test_error_more_100_percent_1(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_error_more_100_percent_1(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.click_1_magnet_button()
@@ -154,9 +132,7 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.check_error_1_discount_message_for_101()
 
-    def test_error_0_percent_1(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_error_0_percent_1(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.click_1_magnet_button()
@@ -167,18 +143,14 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.check_error_1_discount_message_for_0()
 
-    def test_switch_to_page_2(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_switch_to_page_2(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.switch_to_page_2()
 
         my_lead_page.check_contact_present()
 
-    def test_error_2_empty_question(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_error_2_empty_question(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.switch_to_page_2()
@@ -189,9 +161,7 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.check_error_2_question_message('Вопрос должен быть не пустым и содержать минимум 2 ответа')
 
-    def test_close_question(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_close_question(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.switch_to_page_2()
@@ -202,9 +172,7 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.check_question_closed()
 
-    def test_error_2_empty_contact(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_error_2_empty_contact(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.switch_to_page_2()
@@ -216,9 +184,7 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.check_error_2_contact_message('Минимальное количество полей: 1')
 
-    def test_2_shablon(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_2_shablon(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.switch_to_page_2()
@@ -231,9 +197,7 @@ class TestLeadPage(BaseCase):
         my_lead_page.check_3_answer_present()
         my_lead_page.check_3_answer_value('Ничего из перечисленного')
 
-    def test_2_free_answer(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_2_free_answer(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.switch_to_page_2()
@@ -245,9 +209,7 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.check_no_answer_present()
 
-    def test_2_add_answer(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_2_add_answer(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.switch_to_page_2()
@@ -258,9 +220,7 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.check_3_answer_present()
 
-    def test_2_delete_answer(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_2_delete_answer(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.switch_to_page_2()
@@ -275,9 +235,7 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.check_3_answer_not_present()
 
-    def test_error_2_contact_popup(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_error_2_contact_popup(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.switch_to_page_2()
@@ -286,9 +244,7 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.check_2_popup_opened()
 
-    def test_error_2_add_contact(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_error_2_add_contact(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.switch_to_page_2()
@@ -300,9 +256,7 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.check_2_popup_add_contact()
 
-    def test_2_back_button(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_2_back_button(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.switch_to_page_2()
@@ -311,9 +265,7 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.check_heading_present()
 
-    def test_switch_to_page_3(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_switch_to_page_3(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.switch_to_page_2()
@@ -322,9 +274,7 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.check_3_heading_present()
 
-    def test_3_buttons(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_3_buttons(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.switch_to_page_2()
@@ -339,9 +289,7 @@ class TestLeadPage(BaseCase):
         my_lead_page.check_3_phone_present()
         my_lead_page.check_3_promo_present()
 
-    def test_3_empty_fields(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_3_empty_fields(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.switch_to_page_2()
@@ -362,9 +310,7 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.check_error_3_heading_message('Обязательное поле')
 
-    def test_3_maximum_symbols(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_3_maximum_symbols(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.switch_to_page_2()
@@ -385,9 +331,7 @@ class TestLeadPage(BaseCase):
         my_lead_page.check_error_3_description_message('Превышена максимальная длина поля')
         my_lead_page.check_error_3_promo_message('Превышена максимальная длина поля')
 
-    def test_3_phone_field(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_3_phone_field(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.switch_to_page_2()
@@ -404,9 +348,7 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.check_error_3_phone_message('Телефон должен начинаться с + и содержать только цифры')
 
-    def test_3_site_field(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_3_site_field(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.switch_to_page_2()
@@ -423,9 +365,7 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.check_error_3_site_message('Невалидный url')
 
-    def test_switch_to_page_4(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_switch_to_page_4(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.switch_to_page_2()
@@ -436,9 +376,7 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.check_4_button_email_present()
 
-    def test_4_button_necessary_questions(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_4_button_necessary_questions(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.switch_to_page_2()
@@ -455,9 +393,7 @@ class TestLeadPage(BaseCase):
         my_lead_page.click_4_click_necessary_question()
         my_lead_page.check_4_warning_present()
 
-    def test_draft(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_draft(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.switch_to_page_2()
@@ -469,9 +405,7 @@ class TestLeadPage(BaseCase):
         my_lead_page.click_popup_close_button()
         my_lead_page.check_draft_present()
 
-    def test_4_email_input_popup(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_4_email_input_popup(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.switch_to_page_2()
@@ -483,9 +417,7 @@ class TestLeadPage(BaseCase):
         my_lead_page.click_4_button_email()
         my_lead_page.check_4_input_email_notification_present()
 
-    def test_error_4_email(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_error_4_email(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.switch_to_page_2()
@@ -500,9 +432,7 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.check_error_4_email_message('Некорректный email адрес')
 
-    def test_error_4_maximum_symbols(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_error_4_maximum_symbols(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.switch_to_page_2()
@@ -521,9 +451,7 @@ class TestLeadPage(BaseCase):
         my_lead_page.check_error_4_address_message('Превышена максимальная длина поля')
         my_lead_page.check_error_4_inn_message('Превышена максимальная длина поля')
 
-    def test_error_4_empty_fields(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_error_4_empty_fields(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.switch_to_page_2()
@@ -537,9 +465,7 @@ class TestLeadPage(BaseCase):
         my_lead_page.check_error_4_fio_message('Обязательное поле')
         my_lead_page.check_error_4_address_message('Обязательное поле')
 
-    def test_save_lead_form(self, login_page, login_data):
-        my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
-        my_lead_page.open_lead_tab()
+    def test_save_lead_form(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
 
         my_lead_page.switch_to_page_2()
@@ -554,19 +480,3 @@ class TestLeadPage(BaseCase):
         my_lead_page.click_save()
 
         my_lead_page.check_popup_closed()
-
-
-
-
-
-
-
-
-
-    
-
-    
-    
-
-    
-        

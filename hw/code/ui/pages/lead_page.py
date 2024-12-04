@@ -20,7 +20,7 @@ class LeadPage(BasePage):
     #     self.click(LeadPageLocators.ITEM_LOGO)
 
     def open_lead_tab(self):
-        self.click(self.locators.TAB_LEAD, 10)
+        self.click(self.locators.TAB_LEAD, 100)
 
     def click_new_button(self):
         self.click(LeadPageLocators.BUTTON_NEW)

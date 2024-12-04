@@ -76,6 +76,13 @@ def budget_page(login_page, login_data):
     return my_budget_page
 
 @pytest.fixture
-def lead_page(driver):
-    driver.get(LeadPage.url)
-    return LeadPage(driver=driver)
+def my_lead_page(login_page, login_data):
+    my_lead_page = login_page.login_for_lead(login_data["username"], login_data["password"])
+    my_lead_page.open_lead_tab()
+    return my_lead_page
+
+@pytest.fixture
+def main_page(login_page, login_data):
+    main_page = login_page.login_for_audi(login_data["username"], login_data["password"])
+    main_page.open_audience_tab()
+    return main_page

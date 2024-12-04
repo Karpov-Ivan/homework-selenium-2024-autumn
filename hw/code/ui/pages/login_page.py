@@ -4,6 +4,7 @@ from hw.code.ui.locators.login_page_locators import LoginPageLocators
 from hw.code.ui.pages.base_page import BasePage
 from hw.code.ui.pages.budget_page import BudgetPage
 from hw.code.ui.pages.lead_page import LeadPage
+from hw.code.ui.pages.audience_page import AudiencePage
 
 
 class LoginPage(BasePage):
@@ -75,3 +76,4 @@ class LoginPage(BasePage):
         #time.sleep(50)
 
         return LeadPage(self.driver)
+    
