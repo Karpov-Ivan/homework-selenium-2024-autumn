@@ -82,6 +82,12 @@ def my_lead_page(login_page, login_data):
     return my_lead_page
 
 @pytest.fixture
+def audience_page(login_page, login_data):
+    my_audience_page = login_page.login_for_audience(login_data["username"], login_data["password"])
+    my_audience_page.open_audience_tab()
+    return my_audience_page
+
+@pytest.fixture
 def main_page(login_page, login_data):
     main_page = login_page.login_for_audi(login_data["username"], login_data["password"])
     main_page.open_audience_tab()
