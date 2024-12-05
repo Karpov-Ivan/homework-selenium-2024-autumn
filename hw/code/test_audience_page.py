@@ -92,7 +92,7 @@ class TestAudience(base_case.BaseCase):
         audience_page.keywords_input(value)
         audience_page.keywords_button_save()
         audience_page.save_audience()
-        audience_page.checking_open_audience_creation_menu()
+        assert audience_page.is_opened(), "The audience tab did not open as expected."
 
     def test_inactive_share_and_delete_buttons(self, audience_page, login_data):
         audience_page.check_inactive_share()

@@ -1,5 +1,3 @@
-import time
-
 from hw.code.ui.locators.audience_page_locators import AudienceLocators
 from hw.code.ui.pages.base_page import BasePage
 
@@ -92,8 +90,8 @@ class AudiencePage(BasePage):
         assert value in textarea.text, f"there is no meaning in the keywords '{value}'"
 
     def create_audience_click_cross_button(self):
+        assert self.find_with_visibility_of_element_located(self.locators.CROSS_BUTTON, 10), "This element is not visible"
         button = self.driver.find_element(self.locators.CROSS_BUTTON[0], self.locators.CROSS_BUTTON[1])
-        time.sleep(1)
         button.click()
 
     def check_abort_creation_window(self):
@@ -104,10 +102,9 @@ class AudiencePage(BasePage):
         button.click()
 
     def save_audience(self):
+        assert self.find_with_visibility_of_element_located(self.locators.SAVE_AUDIENCE_BUTTON, 10), "This element is not visible"
         button = self.driver.find_element(self.locators.SAVE_AUDIENCE_BUTTON[0], self.locators.SAVE_AUDIENCE_BUTTON[1])
-        time.sleep(1)
         button.click()
-        time.sleep(2)
 
     def check_inactive_share(self):
         assert not self.is_enabled(self.locators.SHARING_AUDIENCE_BUTTON, 10), "Button is active and should not be active"
@@ -122,21 +119,21 @@ class AudiencePage(BasePage):
             self.driver.execute_script("arguments[0].click();", checkbox)
 
     def share_audience(self):
+        assert self.find_with_visibility_of_element_located(self.locators.SHARING_AUDIENCE_BUTTON, 10), "This element is not visible"
         button = self.driver.find_element(self.locators.SHARING_AUDIENCE_BUTTON[0], self.locators.SHARING_AUDIENCE_BUTTON[1])
-        time.sleep(1)
         button.click()
 
 
     def checking_share_window(self):
-        assert self.find(self.locators.SHARING_DELETE_WINDOW), "There is no given title in the menu or the menu has not opened"
+        assert self.find(self.locators.SHARING_AUDIENCE_HEAD), "There is no given title in the menu or the menu has not opened"
 
     def delete_audience(self):
+        assert self.find_with_visibility_of_element_located(self.locators.DELETE_AUDIENCE_BUTTON, 10), "This element is not visible"
         button = self.driver.find_element(self.locators.DELETE_AUDIENCE_BUTTON[0],self.locators.DELETE_AUDIENCE_BUTTON[1])
-        time.sleep(1)
         button.click()
 
     def checking_delete_window(self):
-        assert self.find(self.locators.SHARING_DELETE_WINDOW), "There is no given title in the menu or the menu has not opened"
+        assert self.find(self.locators.DELETE_AUDIENCE_WINDOW), "There is no given title in the menu or the menu has not opened"
 
     def delete_audience_click(self):
         second_button = self.driver.find_element(self.locators.DELETE_AUDIENCE_BUTTON_MENU[0], self.locators.DELETE_AUDIENCE_BUTTON_MENU[1])
@@ -149,15 +146,15 @@ class AudiencePage(BasePage):
         self.click(self.locators.DOWNLOAD_LIST)
 
     def check_download_list(self):
+        assert self.find_with_visibility_of_element_located(self.locators.DOWNLOAD_HEAD, 10), "This element is not visible"
         elem = self.find(self.locators.DOWNLOAD_HEAD, 10)
-        time.sleep(1)
         assert elem.text == "Загрузить список", "The user list download menu did not open"
 
     def open_offline_conversions(self):
         self.click(self.locators.OFFLINE_CONVERSIONS)
 
     def check_offline_conversions(self):
+        assert self.find_with_visibility_of_element_located(self.locators.DOWNLOAD_HEAD, 10), "This element is not visible"
         elem = self.find(self.locators.DOWNLOAD_HEAD)
-        time.sleep(1)
         assert elem.text == "Загрузить список пользователей", "The menu for downloading the list of users in the offline conference did not open"
 

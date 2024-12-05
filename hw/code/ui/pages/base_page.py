@@ -35,6 +35,9 @@ class BasePage(object):
     def find(self, locator, timeout=None):
         return self.wait(timeout).until(EC.presence_of_element_located(locator))
 
+    def find_with_visibility_of_element_located(self, locator, timeout=None):
+        return self.wait(timeout).until(EC.visibility_of_element_located(locator))
+
     @allure.step('Search')
     def search(self, query):
         try:
