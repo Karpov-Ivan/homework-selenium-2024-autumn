@@ -13,12 +13,6 @@ class LeadPage(BasePage):
     def __init__(self, driver):
         self.driver = driver
 
-    # def send_logo(self):
-    #     self.click(LeadPageLocators.BUTTON_LOGO)
-    #     logo_input=self.find(LeadPageLocators.INPUT_1_LOGO)
-    #     logo_input.send_keys('/hw/code/files/photo.png')
-    #     self.click(LeadPageLocators.ITEM_LOGO)
-
     def open_lead_tab(self):
         self.click(self.locators.TAB_LEAD, 100)
 
