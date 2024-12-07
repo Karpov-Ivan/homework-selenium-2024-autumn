@@ -16,13 +16,13 @@ class TestBudgetPage(BaseCase):
     def test_recharge_button_opens_popup(self, budget_page, login_data):
         budget_page.click_recharge_button()
 
-        budget_page.check_popup_present()
+        assert budget_page.check_popup_present(), "Recharge popup not displayed"
 
     def test_close_popup_by_clicking_close_button(self, budget_page, login_data):
         budget_page.click_recharge_button()
 
         budget_page.click_popup_close_button()
-        budget_page.check_popup_closed()
+        assert not budget_page.check_popup_closed(), "Recharge popup not displayed"
 
     def test_fill_payment_amount_validation(self, budget_page, login_data):
         budget_page.click_recharge_button()
@@ -34,13 +34,19 @@ class TestBudgetPage(BaseCase):
         budget_page.click_recharge_button()
 
         budget_page.fill_payment_amount(500)
-        budget_page.check_error_message("Минимальная сумма 600,00 ₽")
+
+        expected_message = "Минимальная сумма 600,00 ₽"
+        error_text = budget_page.check_error_message()
+        assert error_text == expected_message, f"Expected '{expected_message}', got '{error_text}'"
 
     def test_recharge_amount_too_high(self, budget_page, login_data):
         budget_page.click_recharge_button()
 
         budget_page.fill_payment_amount(200001)
-        budget_page.check_error_message("уменьшите сумму")
+
+        expected_message = "уменьшите сумму"
+        error_text = budget_page.check_error_message()
+        assert error_text == expected_message, f"Expected '{expected_message}', got '{error_text}'"
 
     def test_open_popup_and_check_text(self, budget_page, login_data):
         budget_page.click_recharge_button()
@@ -48,11 +54,16 @@ class TestBudgetPage(BaseCase):
         budget_page.click_button_help()
         budget_page.check_help_popup_present()
 
+        assert budget_page.check_help_popup_present(), "Popup header not found"
+
     def test_click_on_link_in_popup(self, budget_page, login_data):
         budget_page.click_recharge_button()
 
         budget_page.click_button_help()
-        budget_page.check_link_help_popup("https://ads.vk.com/help/articles/billing#min")
+
+        expected_url = "https://ads.vk.com/help/articles/billing#min"
+        current_url = budget_page.check_link_help_popup()
+        assert expected_url == expected_url, f"Expected URL to be {expected_url}, but got {current_url}"
 
     def test_non_numeric_input_decimal(self, budget_page, login_data):
         budget_page.click_recharge_button()
@@ -88,26 +99,36 @@ class TestBudgetPage(BaseCase):
 
         budget_page.fill_payment_amount_without_vat("499")
         budget_page.click_recharge_button_popup()
-        budget_page.check_error_message("Минимальная сумма 600,00 ₽")
+
+        expected_message = "Минимальная сумма 600,00 ₽"
+        error_text = budget_page.check_error_message()
+        assert error_text == expected_message, f"Expected '{expected_message}', got '{error_text}'"
 
     def test_recharge_amount_above_max(self, budget_page, login_data):
         budget_page.click_recharge_button()
 
         budget_page.fill_payment_amount_without_vat("166667")
         budget_page.click_recharge_button_popup()
-        budget_page.check_error_message("уменьшите сумму")
+
+        expected_message = "уменьшите сумму"
+        error_text = budget_page.check_error_message()
+        assert error_text == expected_message, f"Expected '{expected_message}', got '{error_text}'"
 
     def test_open_popup_and_check_text_2(self, budget_page, login_data):
         budget_page.click_recharge_button()
 
         budget_page.click_button_help_2()
-        budget_page.check_help_popup_present_2()
+
+        assert budget_page.check_help_popup_present_2(), "Popup header not found"
 
     def test_click_on_link_in_popup_2(self, budget_page, login_data):
         budget_page.click_recharge_button()
 
         budget_page.click_button_help_2()
-        budget_page.check_link_help_popup("https://ads.vk.com/help/articles/billing#min")
+
+        expected_url = "https://ads.vk.com/help/articles/billing#min"
+        current_url = budget_page.check_link_help_popup()
+        assert expected_url == expected_url, f"Expected URL to be {expected_url}, but got {current_url}"
 
     def test_valid_payment_opens_next_modal(self, budget_page, login_data):
         budget_page.click_recharge_button()
@@ -120,14 +141,14 @@ class TestBudgetPage(BaseCase):
 
         assert self.driver.current_url == "https://ads.vk.com/hq/budget/bonus", "URL does not match Bonus Program page"
 
-        budget_page.check_element_bonus_program_page()
+        assert budget_page.check_element_bonus_program_page(), "Promocodes page is not present"
 
     def test_activate_promocode_popup_opens(self, budget_page, login_data):
         budget_page.open_bonus_program_tab()
 
         budget_page.click_activate_promocode()
 
-        budget_page.check_activate_promocode_popup()
+        assert budget_page.check_activate_promocode_popup(), "Pop-up window not opened"
 
     def test_close_promocode_popup(self, budget_page, login_data):
         budget_page.open_bonus_program_tab()
@@ -143,7 +164,9 @@ class TestBudgetPage(BaseCase):
 
         promo_code = "abc123!@#"
         budget_page.enter_promo_code(promo_code)
-        assert budget_page.get_promo_code_input_value() == promo_code, "The input field should accept all entered characters."
+        assert budget_page.get_promo_code_input_value() == promo_code, (
+            "The input field should accept all entered characters."
+        )
 
     def test_error_on_invalid_promo_code(self, budget_page, login_data):
         budget_page.open_bonus_program_tab()

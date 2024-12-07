@@ -18,10 +18,10 @@ class BudgetPage(BasePage):
         self.click(BudgetPageLocators.BUTTON_RECHARGE)
 
     def check_popup_present(self):
-        assert self.is_element_present(BudgetPageLocators.POPUP_RECHARGE), "Recharge popup not displayed"
+        return self.is_element_present(BudgetPageLocators.POPUP_RECHARGE)
 
     def check_popup_closed(self):
-        assert not self.is_element_present(BudgetPageLocators.POPUP_RECHARGE, 10), "Recharge popup not displayed"
+        return self.is_element_present(BudgetPageLocators.POPUP_RECHARGE, 10)
 
     def fill_payment_amount(self, amount):
         self.enter_text(BudgetPageLocators.INPUT_PAYMENT_AMOUNT, amount)
@@ -32,9 +32,9 @@ class BudgetPage(BasePage):
     def click_popup_close_button(self):
         self.click(BudgetPageLocators.CLOSE_BUTTON_LOCATOR)
 
-    def check_error_message(self, expected_message):
+    def check_error_message(self):
         error = self.find(BudgetPageLocators.ERROR_MESSAGE)
-        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
+        return error.text
 
     def click_button_help(self):
         self.click(BudgetPageLocators.ICON_HELP)
@@ -43,12 +43,12 @@ class BudgetPage(BasePage):
         """
         Проверка открытия pop-up окна подсказки 'Сумма к оплате'
         """
-        assert self.is_element_present(BudgetPageLocators.POPUP_HEADER), "Popup header not found"
+        return self.is_element_present(BudgetPageLocators.POPUP_HEADER)
 
     def click_link_help_popup(self):
         self.click(BudgetPageLocators.POPUP_LINK)
 
-    def check_link_help_popup(self, expected_url):
+    def check_link_help_popup(self):
         current_window = self.driver.current_window_handle
 
         self.click_link_help_popup()
@@ -61,7 +61,8 @@ class BudgetPage(BasePage):
                 break
 
         WebDriverWait(self.driver, 10).until(lambda driver: driver.current_url == expected_url)
-        assert self.driver.current_url == expected_url, f"Expected URL to be {expected_url}, but got {self.driver.current_url}"
+
+        return self.driver.current_url
 
     def fill_payment_amount_without_vat(self, decimal):
         self.enter_text(BudgetPageLocators.INPUT_PAYMENT_AMOUNT_WITHOUT_VAT, decimal)
@@ -82,26 +83,21 @@ class BudgetPage(BasePage):
         """
         Проверка открытия pop-up окна подсказки 'Сумма, поступающая на ваш счёт'
         """
-        assert self.is_element_present(BudgetPageLocators.POPUP_HEADER_2), "Popup header not found"
+        return self.is_element_present(BudgetPageLocators.POPUP_HEADER_2)
 
     def open_bonus_program_tab(self):
         self.click(BudgetPageLocators.TAB_BONUS_PROGRAM)
 
     def check_element_bonus_program_page(self):
-        assert self.is_element_present(
-            BudgetPageLocators.ACTIVATE_PROMOCODE_BUTTON), "Activate Promocode button is not present"
-
-        assert self.is_element_present(
-            BudgetPageLocators.ACTIVATED_PROMOCODES_HEADER), "'Activated Promocodes' header is not present"
-
-        assert self.is_element_present(
-            BudgetPageLocators.PERSONAL_OFFERS_HEADER), "'Personal Offers' header is not present"
+        return (self.is_element_present(BudgetPageLocators.ACTIVATE_PROMOCODE_BUTTON) and
+                self.is_element_present(BudgetPageLocators.ACTIVATED_PROMOCODES_HEADER) and
+                self.is_element_present(BudgetPageLocators.PERSONAL_OFFERS_HEADER))
 
     def click_activate_promocode(self):
         self.click(BudgetPageLocators.ACTIVATE_PROMOCODE_BUTTON)
 
     def check_activate_promocode_popup(self):
-        assert self.is_element_present(BudgetPageLocators.POPUP_HEADER_PROMOCODE), "Pop-up window not opened"
+        return self.is_element_present(BudgetPageLocators.POPUP_HEADER_PROMOCODE)
 
     def click_close_activate_promocode(self):
         self.click(BudgetPageLocators.CLOSE_BUTTON_LOCATOR)
