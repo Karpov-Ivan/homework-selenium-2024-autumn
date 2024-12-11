@@ -20,13 +20,10 @@ class LeadPage(BasePage):
         self.click(LeadPageLocators.BUTTON_NEW)
 
     def check_popup_present(self):
-        assert self.is_element_present(LeadPageLocators.POPUP_NEW), "New lead form popup not displayed"
+        return self.is_element_present(LeadPageLocators.POPUP_NEW)
 
     def click_popup_close_button(self):
         self.click(LeadPageLocators.CLOSE_BUTTON_LOCATOR)
-
-    def check_popup_closed(self):
-        assert not self.is_element_present(LeadPageLocators.POPUP_NEW, 10), "New lead form popup displayed"
 
     def fill_1_name(self, name):
         self.enter_text(LeadPageLocators.INPUT_1_NAME, name, 10)
@@ -80,47 +77,46 @@ class LeadPage(BasePage):
         self.click(LeadPageLocators.CLOSE_BUTTON_LOCATOR)
 
     def check_heading_present(self):
-        assert self.is_element_present(LeadPageLocators.INPUT_1_HEADING), "Heading field not displayed"
+        return self.is_element_present(LeadPageLocators.INPUT_1_HEADING)
 
     def check_big_description_present(self):
-        assert self.is_element_present(LeadPageLocators.INPUT_1_BIG_DESCRIPTION), "Big description field not displayed"
+        return self.is_element_present(LeadPageLocators.INPUT_1_BIG_DESCRIPTION)
 
     def check_discount_present(self):
-        assert self.is_element_present(LeadPageLocators.BUTTON_SKIDKA), "Bonus form not displayed"
-        assert not self.is_element_present(LeadPageLocators.INPUT_1_BONUS), "Bonus field not displayed"
+        return self.is_element_present(LeadPageLocators.BUTTON_SKIDKA)
 
     def check_bonus_present(self):
-        assert self.is_element_present(LeadPageLocators.INPUT_1_BONUS), "Bonus field not displayed"
+        return self.is_element_present(LeadPageLocators.INPUT_1_BONUS)
 
     def check_error_1_name_message(self, expected_message):
         error = self.find(LeadPageLocators.ERROR_1_NAME)
-        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
+        return error.text 
 
     def check_error_1_description_message(self, expected_message):
         error = self.find(LeadPageLocators.ERROR_1_DESCRIPTION)
-        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
+        return error.text
 
     def check_error_1_heading_message(self, expected_message):
         error = self.find(LeadPageLocators.ERROR_1_HEADING)
-        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
+        return error.text
 
     def check_error_1_big_description_message(self, expected_message):
         error = self.find(LeadPageLocators.ERROR_1_BIG_DESCRIPTION)
-        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
+        return error.text
 
     def check_error_1_bonus_message(self, expected_message):
         error = self.find(LeadPageLocators.ERROR_1_BONUS)
-        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
+        return error.text
 
     def check_error_1_discount_message_for_101(self):
-        assert self.is_element_present(LeadPageLocators.ERROR_1_SKIDKA_FOR_101), "No error for more than 100 percent"
+        return self.is_element_present(LeadPageLocators.ERROR_1_SKIDKA_FOR_101)
 
     def check_error_1_discount_message_for_0(self):
-        assert self.is_element_present(LeadPageLocators.ERROR_1_SKIDKA_FOR_0), "No error for 0 discount"
+        return self.is_element_present(LeadPageLocators.ERROR_1_SKIDKA_FOR_0)
 
     def check_error_1_logo_message(self, expected_message):
         error = self.find(LeadPageLocators.ERROR_1_LOGO)
-        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
+        return error.text
 
     def switch_to_page_2(self):
         self.click(LeadPageLocators.BUTTON_LOGO)
@@ -181,33 +177,33 @@ class LeadPage(BasePage):
         action.move_to_element(error_icon).perform()
 
         error = self.find(LeadPageLocators.ERROR_2_QUESTION_TEXT)
-        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
+        return error.text
 
     def check_error_2_contact_message(self, expected_message):
         error = self.find(LeadPageLocators.ERROR_2_CONTACT)
-        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
+        return error.text
 
     def check_question_closed(self):
-        assert not self.is_element_present(LeadPageLocators.POPUP_QUESTION, 10), "Question form popup displayed"
+        return not self.is_element_present(LeadPageLocators.POPUP_QUESTION, 10)
 
     def check_3_answer_present(self):
-        assert self.is_element_present(LeadPageLocators.INPUT_2_ANSWER_3, 10), "3 answer is not displayed"
+        return self.is_element_present(LeadPageLocators.INPUT_2_ANSWER_3, 10)
 
     def check_3_answer_not_present(self):
-        assert not self.is_element_present(LeadPageLocators.INPUT_2_ANSWER_3, 10), "3 answer is displayed"
+        return not self.is_element_present(LeadPageLocators.INPUT_2_ANSWER_3, 10)
 
     def check_contact_present(self):
-        assert self.is_element_present(LeadPageLocators.BUTTON_2_BIN_NAME, 10), "Contact is not displayed"
+        return self.is_element_present(LeadPageLocators.BUTTON_2_BIN_NAME, 10)
 
     def check_3_answer_value(self, expected_value):
         input = self.find(LeadPageLocators.INPUT_2_ANSWER_3)
-        assert input.get_attribute("value") == expected_value, f"Expected '{expected_value}', got '{input.text}'"
+        return input.get_attribute("value")
 
     def check_no_answer_present(self):
-        assert not self.is_element_present(LeadPageLocators.INPUT_2_ANSWER_1, 10), "3 answer is not displayed"
+        return not self.is_element_present(LeadPageLocators.INPUT_2_ANSWER_1, 10)
 
     def check_2_popup_opened(self):
-        assert self.is_element_present(LeadPageLocators.POPUP_CONTACT), "Contact form popup not displayed"
+        return self.is_element_present(LeadPageLocators.POPUP_CONTACT)
 
     def click_popup_list_button(self):
         self.click(LeadPageLocators.POPUP_LIST_BUTTON)
@@ -216,19 +212,19 @@ class LeadPage(BasePage):
         self.click(LeadPageLocators.POPUP_ADD_BUTTON)
 
     def check_2_popup_add_contact(self):
-        assert self.is_element_present(LeadPageLocators.BUTTON_2_BIN_CITY), "Contact form popup not displayed"
+        return self.is_element_present(LeadPageLocators.BUTTON_2_BIN_CITY)
 
     def check_3_heading_present(self):
-        assert self.is_element_present(LeadPageLocators.INPUT_3_HEADING, 10), "Heading is not displayed"
+        return self.is_element_present(LeadPageLocators.INPUT_3_HEADING, 10)
 
     def check_3_site_present(self):
-        assert self.is_element_present(LeadPageLocators.INPUT_3_SITE, 10), "Site is not displayed"
+        return self.is_element_present(LeadPageLocators.INPUT_3_SITE, 10)
 
     def check_3_phone_present(self):
-        assert self.is_element_present(LeadPageLocators.INPUT_3_PHONE, 10), "Phone is not displayed"
+        return self.is_element_present(LeadPageLocators.INPUT_3_PHONE, 10)
 
     def check_3_promo_present(self):
-        assert self.is_element_present(LeadPageLocators.INPUT_3_PROMO, 10), "Promo is not displayed"
+        return self.is_element_present(LeadPageLocators.INPUT_3_PROMO, 10)
 
     def click_3_click_site(self):
         self.click(LeadPageLocators.BUTTON_3_SITE)
@@ -263,38 +259,38 @@ class LeadPage(BasePage):
 
     def check_error_3_heading_message(self, expected_message):
         error = self.find(LeadPageLocators.ERROR_3_HEADING)
-        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
+        return error.text
 
     def check_error_3_description_message(self, expected_message):
         error = self.find(LeadPageLocators.ERROR_3_DESCRIPTION)
-        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
+        return error.text
 
     def check_error_3_site_message(self, expected_message):
         error = self.find(LeadPageLocators.ERROR_3_SITE)
-        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
+        return error.text
 
     def check_error_3_phone_message(self, expected_message):
         error = self.find(LeadPageLocators.ERROR_3_PHONE)
-        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
+        return error.text
 
     def check_error_3_promo_message(self, expected_message):
         error = self.find(LeadPageLocators.ERROR_3_PROMO)
-        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
+        return error.text
 
     def check_4_button_email_present(self):
-        assert self.is_element_present(LeadPageLocators.BUTTON_4_EMAIL, 10), "Button for email notification is not displayed"
+        return self.is_element_present(LeadPageLocators.BUTTON_4_EMAIL, 10)
 
     def check_4_input_email_notification_present(self):
-        assert self.is_element_present(LeadPageLocators.INPUT_4_EMAIL_FOR_NOTIFICATION, 10), "Input for email notification is not displayed"
+        return self.is_element_present(LeadPageLocators.INPUT_4_EMAIL_FOR_NOTIFICATION, 10)
 
     def check_4_modal_present(self):
-        assert self.is_element_present(LeadPageLocators.MODAL_PAGE, 10), "Modal page is not displayed"
+        return self.is_element_present(LeadPageLocators.MODAL_PAGE, 10)
 
     def check_4_warning_present(self):
-        assert self.is_element_present(LeadPageLocators.MODAL_WARNING, 10), "Warning is not displayed"
+        return self.is_element_present(LeadPageLocators.MODAL_WARNING, 10)
 
     def check_draft_present(self):
-        assert self.is_element_present(LeadPageLocators.MODAL_DRAFT, 10), "Draft is not displayed"
+        return self.is_element_present(LeadPageLocators.MODAL_DRAFT, 10)
 
     def click_4_click_necessary_question(self):
         self.click(LeadPageLocators.BUTTON_4_NECESSARY_QUESTIONS)
@@ -316,18 +312,18 @@ class LeadPage(BasePage):
 
     def check_error_4_fio_message(self, expected_message):
         error = self.find(LeadPageLocators.ERROR_4_FIO)
-        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
+        return error.text
 
     def check_error_4_address_message(self, expected_message):
         error = self.find(LeadPageLocators.ERROR_4_ADDRESS)
-        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
+        return error.text
 
     def check_error_4_email_message(self, expected_message):
         error = self.find(LeadPageLocators.ERROR_4_EMAIL)
-        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
+        return error.text
 
     def check_error_4_inn_message(self, expected_message):
         error = self.find(LeadPageLocators.ERROR_4_INN)
-        assert error.text == expected_message, f"Expected '{expected_message}', got '{error.text}'"
+        return error.text
 
     
