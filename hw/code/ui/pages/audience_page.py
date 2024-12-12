@@ -15,22 +15,22 @@ class AudiencePage(BasePage):
         self.click(self.locators.CREATE_AUDIENCE, 10)
 
     def checking_open_audience_creation_menu(self):
-        assert self.is_element_present(self.locators.AUDIENCE_CREATION_ELEMENT, 10), "Audience creation menu is not displayed"
+        return self.is_element_present(self.locators.AUDIENCE_CREATION_ELEMENT, 10)
 
     def add_source(self):
         self.click(self.locators.ADD_SOURCE, 10)
 
     def checking_open_add_source_menu(self):
-        assert self.is_element_present(self.locators.TURN_SOURCE_ELEMENT, 10), "Power on menu of the source is not displayed"
+        return self.is_element_present(self.locators.TURN_SOURCE_ELEMENT, 10)
 
     def keywords(self):
         self.click(self.locators.KEYWORDS, 10)
 
     def checking_open_keywords_menu(self):
-        assert self.is_element_present(self.locators.KEYWORDS_HEAD, 10), "Keywords menu is not displayed"
+        return self.is_element_present(self.locators.KEYWORDS_HEAD, 10)
 
     def checking_keywords_button_save_not_active(self):
-        assert self.is_enabled(self.locators.KEYWORDS_DIV_BUTTON_SAVE, 10), "Button is active and should not be active"
+        return self.is_enabled(self.locators.KEYWORDS_DIV_BUTTON_SAVE, 10)
 
     def search_period(self, period):
         search_input = self.find(self.locators.KEYWORDS_INPUT_PERIOD, 10)
@@ -41,12 +41,12 @@ class AudiencePage(BasePage):
     def check_search_period_less_one(self):
         input_element = self.find(self.locators.KEYWORDS_INPUT_PERIOD, 10)
         value = input_element.get_attribute('value')
-        assert value == "1", "Period is not equal to 1"
+        return value == "1"
 
     def check_search_period_more_thirty(self):
         input_element = self.find(self.locators.KEYWORDS_INPUT_PERIOD, 10)
         value = input_element.get_attribute('value')
-        assert value == "30", "Period is not equal to 30"
+        return value == "30"
 
     def keywords_input(self, value):
         textarea = self.find(self.locators.KEYWORDS_INPUT_TEXTAREA)
@@ -62,7 +62,7 @@ class AudiencePage(BasePage):
         div_elements = self.driver.find_elements(self.locators.KEYWORDS_CHECK_VALUE[0], self.locators.KEYWORDS_CHECK_VALUE[1])
         pre_last_div = div_elements[-2]
         text = pre_last_div.text
-        assert text == value, f"The keyword is '{value}' not found"
+        return text == value
 
     def source_deletion_icon(self):
         buttons = self.driver.find_elements(self.locators.DELETE_ICON[0], self.locators.DELETE_ICON[1])
@@ -77,7 +77,8 @@ class AudiencePage(BasePage):
     def check_source_deletion(self):
         elements = self.driver.find_elements(self.locators.DELETE_ICON[0], self.locators.DELETE_ICON[1])
         if len(elements) != 0:
-            assert False, "The source has not been deleted"
+            return False
+        return True
 
     def source_edit_icon(self):
         buttons = self.driver.find_elements(self.locators.EDIT_ICON[0], self.locators.EDIT_ICON[1])
@@ -87,30 +88,34 @@ class AudiencePage(BasePage):
 
     def find_value_keywords(self, value):
         textarea = self.find(self.locators.KEYWORDS_INPUT_TEXTAREA)
-        assert value in textarea.text, f"there is no meaning in the keywords '{value}'"
+        return value in textarea.text
+
+    def create_audience_click_cross_button_check_visibility(self):
+        return self.find_with_visibility_of_element_located(self.locators.CROSS_BUTTON, 10)
 
     def create_audience_click_cross_button(self):
-        assert self.find_with_visibility_of_element_located(self.locators.CROSS_BUTTON, 10), "This element is not visible"
         button = self.driver.find_element(self.locators.CROSS_BUTTON[0], self.locators.CROSS_BUTTON[1])
         button.click()
 
     def check_abort_creation_window(self):
-        assert self.find(self.locators.CROSS_MENU), "Menu for interrupting the audience did not appear"
+        return self.find(self.locators.CROSS_MENU)
 
     def abort_audience_creation_click(self):
         button = self.driver.find_element(self.locators.ABORT_MENU_BUTTON[0], self.locators.ABORT_MENU_BUTTON[1])
         button.click()
 
+    def save_audience_check_visibility(self):
+        return self.find_with_visibility_of_element_located(self.locators.SAVE_AUDIENCE_BUTTON, 10)
+
     def save_audience(self):
-        assert self.find_with_visibility_of_element_located(self.locators.SAVE_AUDIENCE_BUTTON, 10), "This element is not visible"
         button = self.driver.find_element(self.locators.SAVE_AUDIENCE_BUTTON[0], self.locators.SAVE_AUDIENCE_BUTTON[1])
         button.click()
 
     def check_inactive_share(self):
-        assert not self.is_enabled(self.locators.SHARING_AUDIENCE_BUTTON, 10), "Button is active and should not be active"
+        return not self.is_enabled(self.locators.SHARING_AUDIENCE_BUTTON, 10)
 
     def check_inactive_delete(self):
-        assert not self.is_enabled(self.locators.DELETE_AUDIENCE_BUTTON, 10), "Button is active and should not be active"
+        return not self.is_enabled(self.locators.DELETE_AUDIENCE_BUTTON, 10)
 
     def selected_audiece(self):
         checkboxs = self.driver.find_elements(self.locators.SHARING_AUDIENCE[0], self.locators.SHARING_AUDIENCE[1])
@@ -118,22 +123,26 @@ class AudiencePage(BasePage):
         if not checkbox.is_selected():
             self.driver.execute_script("arguments[0].click();", checkbox)
 
+    def share_audience_check_visibility(self):
+        return self.find_with_visibility_of_element_located(self.locators.SHARING_AUDIENCE_BUTTON, 10)
+
     def share_audience(self):
-        assert self.find_with_visibility_of_element_located(self.locators.SHARING_AUDIENCE_BUTTON, 10), "This element is not visible"
         button = self.driver.find_element(self.locators.SHARING_AUDIENCE_BUTTON[0], self.locators.SHARING_AUDIENCE_BUTTON[1])
         button.click()
 
 
     def checking_share_window(self):
-        assert self.find(self.locators.SHARING_AUDIENCE_HEAD), "There is no given title in the menu or the menu has not opened"
+        return self.find(self.locators.SHARING_AUDIENCE_HEAD)
+
+    def delete_audience_check_visibility(self):
+        return self.find_with_visibility_of_element_located(self.locators.DELETE_AUDIENCE_BUTTON, 10)
 
     def delete_audience(self):
-        assert self.find_with_visibility_of_element_located(self.locators.DELETE_AUDIENCE_BUTTON, 10), "This element is not visible"
         button = self.driver.find_element(self.locators.DELETE_AUDIENCE_BUTTON[0],self.locators.DELETE_AUDIENCE_BUTTON[1])
         button.click()
 
     def checking_delete_window(self):
-        assert self.find(self.locators.DELETE_AUDIENCE_WINDOW), "There is no given title in the menu or the menu has not opened"
+        return self.find(self.locators.DELETE_AUDIENCE_WINDOW)
 
     def delete_audience_click(self):
         second_button = self.driver.find_element(self.locators.DELETE_AUDIENCE_BUTTON_MENU[0], self.locators.DELETE_AUDIENCE_BUTTON_MENU[1])
@@ -145,16 +154,20 @@ class AudiencePage(BasePage):
     def download_list(self):
         self.click(self.locators.DOWNLOAD_LIST)
 
+    def check_download_list_check_visibility(self):
+        return self.find_with_visibility_of_element_located(self.locators.DOWNLOAD_HEAD, 10)
+
     def check_download_list(self):
-        assert self.find_with_visibility_of_element_located(self.locators.DOWNLOAD_HEAD, 10), "This element is not visible"
         elem = self.find(self.locators.DOWNLOAD_HEAD, 10)
-        assert elem.text == "Загрузить список", "The user list download menu did not open"
+        return elem.text == "Загрузить список"
 
     def open_offline_conversions(self):
         self.click(self.locators.OFFLINE_CONVERSIONS)
 
+    def check_offline_conversions_check_visibility(self):
+        return self.find_with_visibility_of_element_located(self.locators.DOWNLOAD_HEAD, 10)
+
     def check_offline_conversions(self):
-        assert self.find_with_visibility_of_element_located(self.locators.DOWNLOAD_HEAD, 10), "This element is not visible"
         elem = self.find(self.locators.DOWNLOAD_HEAD)
-        assert elem.text == "Загрузить список пользователей", "The menu for downloading the list of users in the offline conference did not open"
+        return elem.text == "Загрузить список пользователей"
 
