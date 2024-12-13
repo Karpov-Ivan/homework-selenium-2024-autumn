@@ -97,8 +97,8 @@ class TestAudience(base_case.BaseCase):
         assert audience_page.is_opened(), "The audience tab did not open as expected."
 
     def test_inactive_share_and_delete_buttons(self, audience_page, login_data):
-        assert audience_page.check_inactive_share(), "Button is active and should not be active"
-        assert audience_page.check_inactive_delete(), "Button is active and should not be active"
+        assert audience_page.check_inactive_share(), "Button share is active and should not be active"
+        assert audience_page.check_inactive_delete(), "Button delete is active and should not be active"
 
     def test_share_buttons(self, audience_page, login_data):
         audience_page.create_audience()
