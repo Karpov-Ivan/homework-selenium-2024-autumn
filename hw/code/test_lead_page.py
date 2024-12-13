@@ -100,16 +100,23 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.click_continue()
 
-        assert my_lead_page.check_error_1_name_message == 'Обязательное поле', f"Expected 'Обязательное поле', got something different"
-        assert my_lead_page.check_error_1_heading_message == 'Обязательное поле', f"Expected 'Обязательное поле', got something different"
-        assert my_lead_page.check_error_1_bonus_message == 'Обязательное поле', f"Expected 'Обязательное поле', got something different"
-        assert my_lead_page.check_error_1_logo_message == 'Обязательное поле', f"Expected 'Обязательное поле', got something different"
+        error1 = my_lead_page.check_error_1_name_message
+        error2 = my_lead_page.check_error_1_heading_message
+        error3 = my_lead_page.check_error_1_bonus_message
+        error4 = my_lead_page.check_error_1_logo_message
+
+        assert error1 == 'Обязательное поле', f"Expected 'Обязательное поле', got '{error1}'"
+        assert error2 == 'Обязательное поле', f"Expected 'Обязательное поле', got '{error2}'"
+        assert error3 == 'Обязательное поле', f"Expected 'Обязательное поле', got '{error3}'"
+        assert error4 == 'Обязательное поле', f"Expected 'Обязательное поле', got '{error4}'"
 
         my_lead_page.click_1_more_text_button()
-        assert my_lead_page.check_error_1_big_description_message == 'Обязательное поле', f"Expected 'Обязательное поле', got something different"
+        error5 = my_lead_page.check_error_1_big_description_message
+        assert error5 == 'Обязательное поле', f"Expected 'Обязательное поле', got '{error5}'"
 
         my_lead_page.click_1_compact_button()
-        assert my_lead_page.check_error_1_description_message == 'Обязательное поле', f"Expected 'Обязательное поле', got something different"
+        error6 = my_lead_page.check_error_1_description_message
+        assert error6 == 'Обязательное поле', f"Expected 'Обязательное поле', got '{error6}"
 
     def test_error_big_description_perenoc_1(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
@@ -119,7 +126,8 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.click_continue()
 
-        assert my_lead_page.check_error_1_big_description_message == 'Используйте перенос строки не больше 2 раз подряд', f"Expected 'Используйте перенос строки не больше 2 раз подряд', got something different"
+        error1 = my_lead_page.check_error_1_big_description_message
+        assert error1 == 'Используйте перенос строки не больше 2 раз подряд', f"Expected 'Используйте перенос строки не больше 2 раз подряд', got '{error1}'"
 
     def test_error_more_100_percent_1(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
@@ -159,7 +167,8 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.click_continue()
 
-        assert my_lead_page.check_error_2_question_message == 'Вопрос должен быть не пустым и содержать минимум 2 ответа', f"Expected 'Вопрос должен быть не пустым и содержать минимум 2 ответа', got something different"
+        error1 = my_lead_page.check_error_2_question_message
+        assert error1 == 'Вопрос должен быть не пустым и содержать минимум 2 ответа', f"Expected 'Вопрос должен быть не пустым и содержать минимум 2 ответа', got '{error1}'"
 
     def test_close_question(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
@@ -182,7 +191,8 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.click_continue()
 
-        assert my_lead_page.check_error_2_contact_message == 'Минимальное количество полей: 1', f"Expected 'Минимальное количество полей: 1', got something different"
+        error1 = my_lead_page.check_error_2_contact_message
+        assert error1 == 'Минимальное количество полей: 1', f"Expected 'Минимальное количество полей: 1', got '{error1}'"
 
     def test_2_shablon(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
@@ -195,7 +205,8 @@ class TestLeadPage(BaseCase):
         my_lead_page.click_2_nothing_answer()
 
         assert my_lead_page.check_3_answer_present(), 'answer not present'
-        assert my_lead_page.check_3_answer_value == 'Ничего из перечисленного', f"Expected 'Ничего из перечисленного', got something different"
+        error1 = my_lead_page.check_3_answer_value
+        assert error1 == 'Ничего из перечисленного', f"Expected 'Ничего из перечисленного', got '{error1}'"
 
     def test_2_free_answer(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
@@ -308,7 +319,8 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.click_continue()
 
-        assert my_lead_page.check_error_3_heading_message == 'Обязательное поле', f"Expected 'Обязательное поле', got something different"
+        error1 = my_lead_page.check_error_3_heading_message
+        assert error1 == 'Обязательное поле', f"Expected 'Обязательное поле', got '{error1}'"
 
     def test_3_maximum_symbols(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
@@ -327,9 +339,13 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.click_continue()
 
-        assert my_lead_page.check_error_3_heading_message == 'Превышена максимальная длина поля', f"Expected 'Превышена максимальная длина поля', got something different"
-        assert my_lead_page.check_error_3_description_message == 'Превышена максимальная длина поля', f"Expected 'Превышена максимальная длина поля', got something different"
-        assert my_lead_page.check_error_3_promo_message == 'Превышена максимальная длина поля', f"Expected 'Превышена максимальная длина поля', got something different"
+        error1 = my_lead_page.check_error_3_heading_message
+        error2 = my_lead_page.check_error_3_description_message 
+        error3 = my_lead_page.check_error_3_promo_message
+
+        assert error1 == 'Превышена максимальная длина поля', f"Expected 'Превышена максимальная длина поля', got '{error1}'"
+        assert error2 == 'Превышена максимальная длина поля', f"Expected 'Превышена максимальная длина поля', got '{error2}'"
+        assert error3 == 'Превышена максимальная длина поля', f"Expected 'Превышена максимальная длина поля', got '{error3}'"
 
     def test_3_phone_field(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
@@ -346,7 +362,8 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.click_continue()
 
-        assert my_lead_page.check_error_3_phone_message == 'Телефон должен начинаться с + и содержать только цифры', f"Expected 'Телефон должен начинаться с + и содержать только цифры', got something different"
+        error1 = my_lead_page.check_error_3_phone_message
+        assert error1 == 'Телефон должен начинаться с + и содержать только цифры', f"Expected 'Телефон должен начинаться с + и содержать только цифры', got '{error1}'"
 
     def test_3_site_field(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
@@ -363,7 +380,8 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.click_continue()
 
-        assert my_lead_page.check_error_3_site_message == 'Невалидный url', f"Expected 'Невалидный url', got something different"
+        error1 = my_lead_page.check_error_3_site_message
+        assert error1 == 'Невалидный url', f"Expected 'Невалидный url', got '{error1}'"
 
     def test_switch_to_page_4(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
@@ -430,7 +448,8 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.click_save()
 
-        assert my_lead_page.check_error_4_email_message == 'Некорректный email адрес', f"Expected 'Некорректный email адрес', got something different"
+        error1 = my_lead_page.check_error_4_email_message
+        assert error1 == 'Некорректный email адрес', f"Expected 'Некорректный email адрес', got '{error1}'"
 
     def test_error_4_maximum_symbols(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
@@ -447,9 +466,13 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.click_save()
 
-        assert my_lead_page.check_error_4_fio_message == 'Превышена максимальная длина поля', f"Expected 'Превышена максимальная длина поля', got something different"
-        assert my_lead_page.check_error_4_address_message == 'Превышена максимальная длина поля', f"Expected 'Превышена максимальная длина поля', got something different"
-        assert my_lead_page.check_error_4_inn_message == 'Превышена максимальная длина поля', f"Expected 'Превышена максимальная длина поля', got something different"
+        error1 = my_lead_page.check_error_4_fio_message
+        error2 = my_lead_page.check_error_4_address_message
+        error3 = my_lead_page.check_error_4_inn_message
+
+        assert error1 == 'Превышена максимальная длина поля', f"Expected 'Превышена максимальная длина поля', got '{error1}'"
+        assert error2 == 'Превышена максимальная длина поля', f"Expected 'Превышена максимальная длина поля', got '{error2}'"
+        assert error3 == 'Превышена максимальная длина поля', f"Expected 'Превышена максимальная длина поля', got '{error3}'"
 
     def test_error_4_empty_fields(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
@@ -462,8 +485,11 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.click_save()
 
-        assert my_lead_page.check_error_4_fio_message == 'Обязательное поле', f"Expected 'Обязательное поле', got something different"
-        assert my_lead_page.check_error_4_address_message == 'Обязательное поле', f"Expected 'Обязательное поле', got something different"
+        error1 = my_lead_page.check_error_4_fio_message 
+        error2 = my_lead_page.check_error_4_address_message
+
+        assert error1 == 'Обязательное поле', f"Expected 'Обязательное поле', got '{error1}'"
+        assert error2 == 'Обязательное поле', f"Expected 'Обязательное поле', got '{error2}'"
 
     def test_save_lead_form(self, my_lead_page, login_data):
         my_lead_page.click_new_button()
