@@ -24,7 +24,7 @@ class AudienceLocators:
     KEWORDS_BURRON_SAVE = (By.CSS_SELECTOR, '.ModalSidebarPage__footer.ModalSidebarPage_footer__xRUr-')
 
     LIST_ADD_SOURCES = (By.CLASS_NAME, 'CreateSegmentModal_content__Q5QuZ')
-    DELETE_ICON = (By.CLASS_NAME, 'Header_delete__aQ32O')
+    DELETE_ICON = (By.CLASS_NAME, 'vkuiIcon--delete_outline_20')
     DELETE_ICON_TEST = (By.XPATH, '//*[contains(@class, "Header_delete__aQ32O")]')
     DELETE_WINDOW = (By.CLASS_NAME, 'ModalConfirm_wrapper__hdfG4')
     DELETE_BUTTON = (By.CLASS_NAME, 'vkuiButton--appearance-negative')
