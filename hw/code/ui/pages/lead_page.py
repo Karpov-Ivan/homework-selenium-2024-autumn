@@ -19,11 +19,11 @@ class LeadPage(BasePage):
     def click_new_button(self):
         self.click(LeadPageLocators.BUTTON_NEW)
 
-    def check_popup_present(self):
-        return self.is_element_present(LeadPageLocators.POPUP_NEW)
-
     def click_popup_close_button(self):
         self.click(LeadPageLocators.CLOSE_BUTTON_LOCATOR)
+
+    def fill_1_form_name(self, name):
+        self.enter_text(LeadPageLocators.INPUT_1_FORM_NAME, name, 10)
 
     def fill_1_name(self, name):
         self.enter_text(LeadPageLocators.INPUT_1_NAME, name, 10)
@@ -113,20 +113,27 @@ class LeadPage(BasePage):
 
     def check_error_1_discount_message_for_0(self):
         return self.is_element_present(LeadPageLocators.ERROR_1_SKIDKA_FOR_0)
-
-    def check_error_1_logo_message(self, expected_message):
-        error = self.find(LeadPageLocators.ERROR_1_LOGO)
-        return error.text
-
-    def switch_to_page_2(self):
+    
+    def create_form(self, form_name):
         self.click(LeadPageLocators.BUTTON_LOGO)
         self.click(LeadPageLocators.ITEM_LOGO)
+
+        self.fill_1_form_name(form_name)
 
         self.fill_1_name('aa')
         self.fill_1_heading('aa')
         self.fill_1_description('aa')
 
         self.click_continue()
+
+        self.click_continue()
+
+        self.click_continue()
+
+        self.fill_4_fio('a')
+        self.fill_4_address('a')
+
+        self.click_save()
 
     def fill_2_question(self, description):
         self.enter_text(LeadPageLocators.INPUT_QUESTION, description)
@@ -183,9 +190,6 @@ class LeadPage(BasePage):
         error = self.find(LeadPageLocators.ERROR_2_CONTACT)
         return error.text
 
-    def check_question_closed(self):
-        return not self.is_element_present(LeadPageLocators.POPUP_QUESTION, 10)
-
     def check_3_answer_present(self):
         return self.is_element_present(LeadPageLocators.INPUT_2_ANSWER_3, 10)
 
@@ -201,9 +205,6 @@ class LeadPage(BasePage):
 
     def check_no_answer_present(self):
         return not self.is_element_present(LeadPageLocators.INPUT_2_ANSWER_1, 10)
-
-    def check_2_popup_opened(self):
-        return self.is_element_present(LeadPageLocators.POPUP_CONTACT)
 
     def click_popup_list_button(self):
         self.click(LeadPageLocators.POPUP_LIST_BUTTON)
@@ -237,9 +238,6 @@ class LeadPage(BasePage):
 
     def fill_3_heading(self, heading):
         self.enter_text(LeadPageLocators.INPUT_3_HEADING, heading)
-
-    def fill_3_heading_alt(self, heading):
-        self.enter_text(LeadPageLocators.INPUT_3_HEADING_ALT, heading)
 
     def clear_3_heading(self):
         heading=self.find(LeadPageLocators.INPUT_3_HEADING)
@@ -282,9 +280,6 @@ class LeadPage(BasePage):
 
     def check_4_input_email_notification_present(self):
         return self.is_element_present(LeadPageLocators.INPUT_4_EMAIL_FOR_NOTIFICATION, 10)
-
-    def check_4_modal_present(self):
-        return self.is_element_present(LeadPageLocators.MODAL_PAGE, 10)
 
     def check_4_warning_present(self):
         return self.is_element_present(LeadPageLocators.MODAL_WARNING, 10)

@@ -27,7 +27,7 @@ class LoginPage(BasePage):
         self.click(self.locators.CONTINUE_BUTTON)
 
     def click_no_vkid_button(self):
-        self.click(self.locators.NO_VKID_BUTTON)
+        self.click(self.locators.NO_VKID_BUTTON, 10)
 
     def click_no_vkid_button_2(self):
         self.click(self.locators.NO_VKID_BUTTON_2, 10)
