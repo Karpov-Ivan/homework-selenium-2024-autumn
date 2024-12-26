@@ -10,7 +10,6 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 from hw.code.ui.pages.base_page import BasePage
 from hw.code.ui.pages.login_page import LoginPage
 from hw.code.ui.pages.budget_page import BudgetPage
-from hw.code.ui.pages.auth_page import AuthPage
 from hw.code.ui.pages.lead_page import LeadPage
 
 
@@ -63,11 +62,6 @@ def base_page(driver):
 def login_page(driver):
     driver.get(LoginPage.url)
     return LoginPage(driver=driver)
-
-@pytest.fixture
-def auth_page(driver):
-    driver.get(AuthPage.url)
-    return AuthPage(driver=driver)
 
 @pytest.fixture
 def budget_page(login_page, login_data):

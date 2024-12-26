@@ -99,6 +99,14 @@ class LeadPageLocators:
     MODAL_WARNING = (By.XPATH, "//h2[contains(text(), 'Сделать все вопросы обязательными?')]")
     MODAL_DRAFT = (By.XPATH, "//h2[contains(text(), 'Сохранить черновик лид-формы?')]")
 
+    LEAD_FORM_NAME_FOR_CREATE = (By.XPATH, "//h5[contains(@data-testid, 'lead_form_name__Тест на создание формы')]")
+    LEAD_FORM_NAME_FOR_ARCHIVE = (By.XPATH, "//h5[contains(@data-testid, 'lead_form_name__Тест на архивирование формы')]")
+    LEAD_FORM_NAME_FOR_MODIFY = (By.XPATH, "//h5[contains(@data-testid, 'lead_form_name__Тест на редактирование формы')]")
+    LEAD_FORM_NAME_NOT_MODIFIED = (By.XPATH, "//h5[contains(@data-testid, 'lead_form_name__Текст должен быть отредактирован')]")
+    LEAD_FORM_MODIFY = (By.XPATH, "//span[contains(text(), 'Редактировать')]")
+    LEAD_FORM_ARCHIVE = (By.XPATH, "//span[contains(text(), 'Архивировать')]")
+    ARCHIVE_CONFIRMATION = (By.XPATH, "//span[text()='Архивировать' and @class='vkuiButton__content']")
+
 
 
 
