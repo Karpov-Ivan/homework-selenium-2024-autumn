@@ -1,4 +1,3 @@
-import time
 from hw.code.ui.locators.login_page_locators import LoginPageLocators
 from hw.code.ui.pages.base_page import BasePage
 from hw.code.ui.pages.budget_page import BudgetPage
@@ -65,11 +64,8 @@ class LoginPage(BasePage):
         self.enter_username(username)
         self.click_next_button()
         self.click_no_vkid_button()
-        #self.click_in_another_way_button()
-        #self.click_password_button()
         self.enter_password(password)
         self.click_continue_mail()
-        #time.sleep(50)
 
         return LeadPage(self.driver)
 
@@ -80,9 +76,8 @@ class LoginPage(BasePage):
         self.click_mail()
         self.enter_username(username)
         self.click_next_button()
-        self.click_no_vkid_button() # click_no_vkid_button_2
+        self.click_no_vkid_button()
         self.enter_password(password)
         self.click_continue_mail_2()
 
         return AudiencePage(self.driver)
-
