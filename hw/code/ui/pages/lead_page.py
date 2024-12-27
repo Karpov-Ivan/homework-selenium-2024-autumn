@@ -5,6 +5,7 @@ from ..locators.lead_page_locators import LeadPageLocators
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium import webdriver
 from selenium.common.exceptions import StaleElementReferenceException
+from selenium.webdriver.common.keys import Keys
 
 
 class LeadPage(BasePage):
@@ -154,6 +155,10 @@ class LeadPage(BasePage):
     def get_lead_form_name_modification(self):
         name = self.find(LeadPageLocators.LEAD_FORM_NAME_FOR_MODIFY, 10)
         return name.text
+    
+    def get_lead_form_name_recovering(self):
+        name = self.find(LeadPageLocators.LEAD_FORM_NAME_FOR_RECOVER, 10)
+        return name.text
 
     def hover_form_deletion(self):
         form = self.find(LeadPageLocators.LEAD_FORM_NAME_FOR_ARCHIVE, 10)
@@ -167,17 +172,48 @@ class LeadPage(BasePage):
         action = ActionChains(self.driver)
         action.move_to_element(form).perform()
 
+    def hover_form_recover(self):
+        form = self.find(LeadPageLocators.LEAD_FORM_NAME_FOR_RECOVER, 10)
+
+        action = ActionChains(self.driver)
+        action.move_to_element(form).perform()
+
+    def switch_to_archive(self):
+        elem = self.click(LeadPageLocators.CHOOSE_INPUT)
+        elem.send_keys(Keys.ARROW_DOWN)
+        elem.send_keys(Keys.ENTER)
+
+    def switch_to_active(self):
+        elem = self.click(LeadPageLocators.CHOOSE_INPUT)
+        elem.send_keys(Keys.ARROW_DOWN)
+        elem.send_keys(Keys.ENTER)
+
     def click_archive(self):
         self.click(LeadPageLocators.LEAD_FORM_ARCHIVE, 10)
 
     def click_modify(self):
         self.click(LeadPageLocators.LEAD_FORM_MODIFY, 10)
 
+    def click_recover(self):
+        self.click(LeadPageLocators.LEAD_FORM_RECOVER, 10)
+
     def click_archive_confirmation(self):
         self.click(LeadPageLocators.ARCHIVE_CONFIRMATION, 10)
 
+    def click_recover_confirmation(self):
+        self.click(LeadPageLocators.RECOVER_CONFIRMATION, 10)
+
     def archive_form_creation(self):
         form = self.find(LeadPageLocators.LEAD_FORM_NAME_FOR_CREATE)
+
+        action = ActionChains(self.driver)
+        action.move_to_element(form).perform()
+
+        self.click(LeadPageLocators.LEAD_FORM_ARCHIVE)
+        self.click(LeadPageLocators.ARCHIVE_CONFIRMATION)
+
+    def archive_form_recovering(self):
+        form = self.find(LeadPageLocators.LEAD_FORM_NAME_FOR_RECOVER)
 
         action = ActionChains(self.driver)
         action.move_to_element(form).perform()

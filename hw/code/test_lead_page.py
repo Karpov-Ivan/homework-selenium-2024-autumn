@@ -80,7 +80,24 @@ class TestLeadPage(BaseCase):
 
         my_lead_page.archive_form_modification()
 
-    def test_form_recover(self, )
+    def test_form_recover(self, my_lead_page, login_data):
+        my_lead_page.create_form('Тест на восстановление формы')
+
+        my_lead_page.archive_form_recovering()
+
+        my_lead_page.switch_to_archive()
+
+        my_lead_page.hover_form_recover()
+        my_lead_page.click_recover()
+        my_lead_page.click_recover_confirmation()
+
+        my_lead_page.switch_to_active()
+
+        form = my_lead_page.get_lead_form_name_recovering()
+        assert form == "Тест на восстановление формы", "Форма не была отредактирована!"
+
+        my_lead_page.archive_form_recovering()
+
 
     #ошибки в форме
     # def test_error_maximum_symbols_1(self, my_lead_page, login_data):
