@@ -99,6 +99,21 @@ class LeadPageLocators:
     MODAL_WARNING = (By.XPATH, "//h2[contains(text(), 'Сделать все вопросы обязательными?')]")
     MODAL_DRAFT = (By.XPATH, "//h2[contains(text(), 'Сохранить черновик лид-формы?')]")
 
+    LEAD_FORM_NAME_FOR_CREATE = (By.XPATH, "//h5[contains(@data-testid, 'lead_form_name__Тест на создание формы')]")
+    LEAD_FORM_NAME_FOR_ARCHIVE = (By.XPATH, "//h5[contains(@data-testid, 'lead_form_name__Тест на архивирование формы')]")
+    LEAD_FORM_NAME_FOR_MODIFY = (By.XPATH, "//h5[contains(@data-testid, 'lead_form_name__Тест на редактирование формы')]")
+    LEAD_FORM_NAME_NOT_MODIFIED = (By.XPATH, "//h5[contains(@data-testid, 'lead_form_name__Текст должен быть отредактирован')]")
+    LEAD_FORM_NAME_FOR_RECOVER = (By.XPATH, "//h5[contains(@data-testid, 'lead_form_name__Тест на восстановление формы')]")
+    LEAD_FORM_MODIFY = (By.XPATH, "//span[contains(text(), 'Редактировать')]")
+    LEAD_FORM_ARCHIVE = (By.XPATH, "//span[contains(text(), 'Архивировать')]")
+    LEAD_FORM_RECOVER = (By.XPATH, "//span[contains(text(), 'Восстановить')]")
+    ARCHIVE_CONFIRMATION = (By.XPATH, "//span[text()='Архивировать' and @class='vkuiButton__content']")
+    RECOVER_CONFIRMATION = (By.XPATH, "//span[text()='Восстановить' and @class='vkuiButton__content']")
+
+    CHOOSE_INPUT = (By.XPATH, "//input[@data-testid='select-options']")
+    ARCHIVE_CHOISE = (By.XPATH, "//span[contains(text(), 'В архиве')]")
+    ACTIVE_CHOISE = (By.XPATH, "//span[contains(text(), 'Активные')]")
+
 
 
 
