@@ -1,13 +1,11 @@
 import time
-
 import allure
-from selenium.common import TimeoutException
-from selenium.webdriver.remote.webelement import WebElement
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver import ActionChains
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.common import TimeoutException
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class PageNotOpenedException(Exception):
@@ -17,16 +15,16 @@ class PageNotOpenedException(Exception):
 class BasePage(object):
     url = 'https://ads.vk.com/'
 
+    def __init__(self, driver):
+        self.driver = driver
+        self.is_opened()
+
     def is_opened(self, timeout=15):
         started = time.time()
         while time.time() - started < timeout:
             if self.driver.current_url == self.url:
                 return True
         raise PageNotOpenedException(f'{self.url} did not open in {timeout} sec, current url {self.driver.current_url}')
-
-    def __init__(self, driver):
-        self.driver = driver
-        self.is_opened()
 
     def wait(self, timeout=None):
         if timeout is None:
@@ -109,15 +107,6 @@ class BasePage(object):
     def click_action(self, button):
         action = ActionChains(self.driver)
         action.move_to_element(button).click(button).perform()
-
-    def click_and_hold_action(self, button_window):
-        actions = ActionChains(self.driver)
-        actions.move_to_element(button_window).click_and_hold().perform()
-        menu_buttons = self.find((By.CLASS_NAME, 'kuiSimpleCell--sizeY-none'), 10)[0]
-        actions.move_to_element(menu_buttons[0]).click().perform()
-
-    def send_keys_tab(self, input, value):
-        input.send_keys(value, Keys.TAB)
 
     def presence_of_all_elements_located(self, locator, timeout=None):
         return self.wait(timeout).until(EC.presence_of_all_elements_located(locator))

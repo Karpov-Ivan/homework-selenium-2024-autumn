@@ -1,12 +1,11 @@
-import pytest
 import re
+import pytest
 from _pytest.fixtures import FixtureRequest
 from selenium.common import TimeoutException
-
 from hw.code.ui.pages.login_page import LoginPage
 from ui.pages.base_page import PageNotOpenedException
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class BaseCase:

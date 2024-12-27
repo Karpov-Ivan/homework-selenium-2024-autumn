@@ -4,6 +4,8 @@ from .base_page import BasePage
 from ..locators.lead_page_locators import LeadPageLocators
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium import webdriver
+from selenium.common.exceptions import StaleElementReferenceException
+from selenium.webdriver.common.keys import Keys
 
 
 class LeadPage(BasePage):
@@ -19,11 +21,11 @@ class LeadPage(BasePage):
     def click_new_button(self):
         self.click(LeadPageLocators.BUTTON_NEW)
 
-    def check_popup_present(self):
-        return self.is_element_present(LeadPageLocators.POPUP_NEW)
-
     def click_popup_close_button(self):
         self.click(LeadPageLocators.CLOSE_BUTTON_LOCATOR)
+
+    def fill_1_form_name(self, name):
+        self.enter_text(LeadPageLocators.INPUT_1_FORM_NAME, name, 10)
 
     def fill_1_name(self, name):
         self.enter_text(LeadPageLocators.INPUT_1_NAME, name, 10)
@@ -88,23 +90,23 @@ class LeadPage(BasePage):
     def check_bonus_present(self):
         return self.is_element_present(LeadPageLocators.INPUT_1_BONUS)
 
-    def check_error_1_name_message(self, expected_message):
+    def check_error_1_name_message(self):
         error = self.find(LeadPageLocators.ERROR_1_NAME)
         return error.text 
 
-    def check_error_1_description_message(self, expected_message):
+    def check_error_1_description_message(self):
         error = self.find(LeadPageLocators.ERROR_1_DESCRIPTION)
         return error.text
 
-    def check_error_1_heading_message(self, expected_message):
+    def check_error_1_heading_message(self):
         error = self.find(LeadPageLocators.ERROR_1_HEADING)
         return error.text
 
-    def check_error_1_big_description_message(self, expected_message):
+    def check_error_1_big_description_message(self):
         error = self.find(LeadPageLocators.ERROR_1_BIG_DESCRIPTION)
         return error.text
 
-    def check_error_1_bonus_message(self, expected_message):
+    def check_error_1_bonus_message(self):
         error = self.find(LeadPageLocators.ERROR_1_BONUS)
         return error.text
 
@@ -113,20 +115,120 @@ class LeadPage(BasePage):
 
     def check_error_1_discount_message_for_0(self):
         return self.is_element_present(LeadPageLocators.ERROR_1_SKIDKA_FOR_0)
-
-    def check_error_1_logo_message(self, expected_message):
-        error = self.find(LeadPageLocators.ERROR_1_LOGO)
-        return error.text
-
-    def switch_to_page_2(self):
+    
+    def fill_logo(self):
         self.click(LeadPageLocators.BUTTON_LOGO)
         self.click(LeadPageLocators.ITEM_LOGO)
+    
+    def create_form(self, form_name):
+        self.click_new_button()
+        self.fill_logo()
+
+        self.fill_1_form_name(form_name)
 
         self.fill_1_name('aa')
         self.fill_1_heading('aa')
         self.fill_1_description('aa')
 
         self.click_continue()
+
+        self.click_continue()
+
+        self.click_continue()
+
+        self.fill_4_fio('a')
+        self.fill_4_address('a')
+
+        self.click_save()
+
+    def get_lead_form_name_creation(self):
+        name = self.find(LeadPageLocators.LEAD_FORM_NAME_FOR_CREATE, 10)
+        return name.text
+        
+    def get_lead_form_name_deletion(self):
+        name = self.find(LeadPageLocators.LEAD_FORM_NAME_FOR_ARCHIVE, 10)
+        try:
+            return name.text
+        except StaleElementReferenceException:
+            return None
+        
+    def get_lead_form_name_modification(self):
+        name = self.find(LeadPageLocators.LEAD_FORM_NAME_FOR_MODIFY, 10)
+        return name.text
+    
+    def get_lead_form_name_recovering(self):
+        name = self.find(LeadPageLocators.LEAD_FORM_NAME_FOR_RECOVER, 10)
+        return name.text
+
+    def hover_form_deletion(self):
+        form = self.find(LeadPageLocators.LEAD_FORM_NAME_FOR_ARCHIVE, 10)
+
+        action = ActionChains(self.driver)
+        action.move_to_element(form).perform()
+
+    def hover_form_modification(self):
+        form = self.find(LeadPageLocators.LEAD_FORM_NAME_NOT_MODIFIED, 10)
+
+        action = ActionChains(self.driver)
+        action.move_to_element(form).perform()
+
+    def hover_form_recover(self):
+        form = self.find(LeadPageLocators.LEAD_FORM_NAME_FOR_RECOVER, 10)
+
+        action = ActionChains(self.driver)
+        action.move_to_element(form).perform()
+
+    def switch_to_archive(self):
+        elem = self.click(LeadPageLocators.CHOOSE_INPUT)
+        elem.send_keys(Keys.ARROW_DOWN)
+        elem.send_keys(Keys.ENTER)
+
+    def switch_to_active(self):
+        elem = self.click(LeadPageLocators.CHOOSE_INPUT)
+        elem.send_keys(Keys.ARROW_DOWN)
+        elem.send_keys(Keys.ENTER)
+
+    def click_archive(self):
+        self.click(LeadPageLocators.LEAD_FORM_ARCHIVE, 10)
+
+    def click_modify(self):
+        self.click(LeadPageLocators.LEAD_FORM_MODIFY, 10)
+
+    def click_recover(self):
+        self.click(LeadPageLocators.LEAD_FORM_RECOVER, 10)
+
+    def click_archive_confirmation(self):
+        self.click(LeadPageLocators.ARCHIVE_CONFIRMATION, 10)
+
+    def click_recover_confirmation(self):
+        self.click(LeadPageLocators.RECOVER_CONFIRMATION, 10)
+
+    def archive_form_creation(self):
+        form = self.find(LeadPageLocators.LEAD_FORM_NAME_FOR_CREATE)
+
+        action = ActionChains(self.driver)
+        action.move_to_element(form).perform()
+
+        self.click(LeadPageLocators.LEAD_FORM_ARCHIVE)
+        self.click(LeadPageLocators.ARCHIVE_CONFIRMATION)
+
+    def archive_form_recovering(self):
+        form = self.find(LeadPageLocators.LEAD_FORM_NAME_FOR_RECOVER)
+
+        action = ActionChains(self.driver)
+        action.move_to_element(form).perform()
+
+        self.click(LeadPageLocators.LEAD_FORM_ARCHIVE)
+        self.click(LeadPageLocators.ARCHIVE_CONFIRMATION)
+
+    def archive_form_modification(self):
+        form = self.find(LeadPageLocators.LEAD_FORM_NAME_FOR_MODIFY)
+
+        action = ActionChains(self.driver)
+        action.move_to_element(form).perform()
+
+        self.click(LeadPageLocators.LEAD_FORM_ARCHIVE)
+        self.click(LeadPageLocators.ARCHIVE_CONFIRMATION)
 
     def fill_2_question(self, description):
         self.enter_text(LeadPageLocators.INPUT_QUESTION, description)
@@ -170,7 +272,7 @@ class LeadPage(BasePage):
     def click_2_add_answer(self):
         self.click(LeadPageLocators.BUTTON_2_ADD_ANSWER)
 
-    def check_error_2_question_message(self, expected_message):
+    def check_error_2_question_message(self):
         error_icon = self.find(LeadPageLocators.ERROR_2_QUESTION_ICON)
 
         action = ActionChains(self.driver)
@@ -179,12 +281,9 @@ class LeadPage(BasePage):
         error = self.find(LeadPageLocators.ERROR_2_QUESTION_TEXT)
         return error.text
 
-    def check_error_2_contact_message(self, expected_message):
+    def check_error_2_contact_message(self):
         error = self.find(LeadPageLocators.ERROR_2_CONTACT)
         return error.text
-
-    def check_question_closed(self):
-        return not self.is_element_present(LeadPageLocators.POPUP_QUESTION, 10)
 
     def check_3_answer_present(self):
         return self.is_element_present(LeadPageLocators.INPUT_2_ANSWER_3, 10)
@@ -201,9 +300,6 @@ class LeadPage(BasePage):
 
     def check_no_answer_present(self):
         return not self.is_element_present(LeadPageLocators.INPUT_2_ANSWER_1, 10)
-
-    def check_2_popup_opened(self):
-        return self.is_element_present(LeadPageLocators.POPUP_CONTACT)
 
     def click_popup_list_button(self):
         self.click(LeadPageLocators.POPUP_LIST_BUTTON)
@@ -238,9 +334,6 @@ class LeadPage(BasePage):
     def fill_3_heading(self, heading):
         self.enter_text(LeadPageLocators.INPUT_3_HEADING, heading)
 
-    def fill_3_heading_alt(self, heading):
-        self.enter_text(LeadPageLocators.INPUT_3_HEADING_ALT, heading)
-
     def clear_3_heading(self):
         heading=self.find(LeadPageLocators.INPUT_3_HEADING)
         heading.clear()
@@ -257,23 +350,23 @@ class LeadPage(BasePage):
     def fill_3_promo(self, promo):
         self.enter_text(LeadPageLocators.INPUT_3_PROMO, promo)
 
-    def check_error_3_heading_message(self, expected_message):
+    def check_error_3_heading_message(self):
         error = self.find(LeadPageLocators.ERROR_3_HEADING)
         return error.text
 
-    def check_error_3_description_message(self, expected_message):
+    def check_error_3_description_message(self):
         error = self.find(LeadPageLocators.ERROR_3_DESCRIPTION)
         return error.text
 
-    def check_error_3_site_message(self, expected_message):
+    def check_error_3_site_message(self):
         error = self.find(LeadPageLocators.ERROR_3_SITE)
         return error.text
 
-    def check_error_3_phone_message(self, expected_message):
+    def check_error_3_phone_message(self):
         error = self.find(LeadPageLocators.ERROR_3_PHONE)
         return error.text
 
-    def check_error_3_promo_message(self, expected_message):
+    def check_error_3_promo_message(self):
         error = self.find(LeadPageLocators.ERROR_3_PROMO)
         return error.text
 
@@ -282,9 +375,6 @@ class LeadPage(BasePage):
 
     def check_4_input_email_notification_present(self):
         return self.is_element_present(LeadPageLocators.INPUT_4_EMAIL_FOR_NOTIFICATION, 10)
-
-    def check_4_modal_present(self):
-        return self.is_element_present(LeadPageLocators.MODAL_PAGE, 10)
 
     def check_4_warning_present(self):
         return self.is_element_present(LeadPageLocators.MODAL_WARNING, 10)
@@ -310,19 +400,19 @@ class LeadPage(BasePage):
     def fill_4_inn(self, promo):
         self.enter_text(LeadPageLocators.INPUT_4_INN, promo)
 
-    def check_error_4_fio_message(self, expected_message):
+    def check_error_4_fio_message(self):
         error = self.find(LeadPageLocators.ERROR_4_FIO)
         return error.text
 
-    def check_error_4_address_message(self, expected_message):
+    def check_error_4_address_message(self):
         error = self.find(LeadPageLocators.ERROR_4_ADDRESS)
         return error.text
 
-    def check_error_4_email_message(self, expected_message):
+    def check_error_4_email_message(self):
         error = self.find(LeadPageLocators.ERROR_4_EMAIL)
         return error.text
 
-    def check_error_4_inn_message(self, expected_message):
+    def check_error_4_inn_message(self):
         error = self.find(LeadPageLocators.ERROR_4_INN)
         return error.text
 
