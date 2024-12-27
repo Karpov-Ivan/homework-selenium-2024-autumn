@@ -108,5 +108,10 @@ class BasePage(object):
         action = ActionChains(self.driver)
         action.move_to_element(button).click(button).perform()
 
-    def send_keys_tab(self, input, value):
-        input.send_keys(value, Keys.TAB)
+    def presence_of_all_elements_located(self, locator, timeout=None):
+        return self.wait(timeout).until(EC.presence_of_all_elements_located(locator))
+
+    def element_to_be_clickable(self, locator, timeout=None):
+        self.wait(timeout).until(EC.element_to_be_clickable(locator))
+
+
