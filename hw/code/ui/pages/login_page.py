@@ -90,7 +90,7 @@ class LoginPage(BasePage):
         self.click_mail()
         self.enter_username(username)
         self.click_next_button()
-        self.click_no_vkid_button() # click_no_vkid_button_2
+        self.click_no_vkid_button_2() # click_no_vkid_button
         self.enter_password(password)
         self.click_continue_mail_2()
 
