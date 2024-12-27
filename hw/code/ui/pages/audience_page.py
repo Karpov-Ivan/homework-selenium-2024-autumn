@@ -13,6 +13,9 @@ class AudiencePage(BasePage):
     def create_audience(self):
         self.click(self.locators.CREATE_AUDIENCE, 10)
 
+    def open_audience_tab(self):
+        self.click(self.locators.TAB_AUDIENCE, 10)
+
     def add_source(self):
         self.click(self.locators.ADD_SOURCE, 10)
 
@@ -24,10 +27,8 @@ class AudiencePage(BasePage):
         textarea.send_keys(value)
 
     def keywords_button_save(self):
-        self.presence_of_all_elements_located(self.locators.KEWORDS_BURRON_SAVE, 10)
-        div_elements = self.driver.find_elements(self.locators.KEWORDS_BURRON_SAVE[0], self.locators.KEWORDS_BURRON_SAVE[1])
-        second_div = div_elements[1]
-        button = second_div.find_element(self.locators.KEYWORDS_DIV_BUTTON_SAVE[0], self.locators.KEYWORDS_DIV_BUTTON_SAVE[1])
+        self.presence_of_all_elements_located(self.locators.KEYWORDS_BUTTON_SAVE, 10)
+        button = self.driver.find_element(self.locators.KEYWORDS_BUTTON_SAVE[0], self.locators.KEYWORDS_BUTTON_SAVE[1])
         button.click()
 
     def input_name_audience(self, name):

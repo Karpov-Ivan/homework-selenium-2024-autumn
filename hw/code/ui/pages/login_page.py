@@ -78,6 +78,6 @@ class LoginPage(BasePage):
         self.click_next_button()
         self.click_no_vkid_button()
         self.enter_password(password)
-        self.click_continue_mail_2()
+        self.click_continue_mail()
 
         return AudiencePage(self.driver)
