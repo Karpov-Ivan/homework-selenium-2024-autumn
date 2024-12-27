@@ -10,7 +10,7 @@ class AudienceLocators:
     KEYWORDS_DIV_BUTTON_SAVE = (By.CLASS_NAME, "vkuiButton--mode-primary")
     KEYWORDS_INPUT_TEXTAREA = (By.CSS_SELECTOR, 'textarea[placeholder="Введите фразу и нажмите Enter"]')
     INPUT_NAME_AUDIENCE = (By.CLASS_NAME, "vkuiText--sizeY-none")
-    KEWORDS_BURRON_SAVE = (By.CSS_SELECTOR, '.ModalSidebarPage__footer.ModalSidebarPage_footer__xRUr-')
+    KEWORDS_BURRON_SAVE = (By.XPATH, '//*[@data-testid="submit"]')
     CHECK_AUDIENCE_SAVE_TITLE = (By.CLASS_NAME, "vkuiSubhead--sizeY-compact")
     OPEN_EDIT_WINDOW_BUTTON = (By.CLASS_NAME, "NameCell_wrapper__hxqrL")
 
