@@ -21,8 +21,12 @@ class BudgetPage(BasePage):
     def get_text_from_input(self):
         return self.get_element_value(BudgetPageLocators.INPUT_PAYMENT_AMOUNT)
 
-    def get_error_message(self):
-        error = self.find(BudgetPageLocators.ERROR_MESSAGE)
+    def get_error_message_min(self):
+        error = self.find(BudgetPageLocators.ERROR_MESSAGE_MIN_VALUE)
+        return error.text
+
+    def get_error_message_max(self):
+        error = self.find(BudgetPageLocators.ERROR_MESSAGE_MAX_VALUE)
         return error.text
 
     def fill_payment_amount_without_vat(self, decimal):
@@ -49,6 +53,6 @@ class BudgetPage(BasePage):
     def click_activate_promo_code_button(self):
         self.click(BudgetPageLocators.BUTTON_PROMOCODE)
 
-    def get_error_message_displayed(self):
-        error = self.find(BudgetPageLocators.ERROR_MESSAGE)
+    def get_error_message_promocode(self):
+        error = self.find(BudgetPageLocators.ERROR_MESSAGE_PROMOCODE)
         return error.text

@@ -32,7 +32,7 @@ class TestBudgetPage(BaseCase):
         budget_page.fill_payment_amount(500)
 
         expected_message = "Минимальная сумма 600,00 ₽"
-        error_text = budget_page.get_error_message()
+        error_text = budget_page.get_error_message_min()
 
         assert error_text == expected_message, f"Expected '{expected_message}', got '{error_text}'"
 
@@ -41,7 +41,7 @@ class TestBudgetPage(BaseCase):
         budget_page.fill_payment_amount(200001)
 
         expected_message = "уменьшите сумму"
-        error_text = budget_page.get_error_message()
+        error_text = budget_page.get_error_message_max()
 
         assert error_text == expected_message, f"Expected '{expected_message}', got '{error_text}'"
 
@@ -69,7 +69,7 @@ class TestBudgetPage(BaseCase):
         budget_page.click_recharge_button_popup()
 
         expected_message = "Минимальная сумма 600,00 ₽"
-        error_text = budget_page.get_error_message()
+        error_text = budget_page.get_error_message_min()
 
         assert error_text == expected_message, f"Expected '{expected_message}', got '{error_text}'"
 
@@ -79,7 +79,7 @@ class TestBudgetPage(BaseCase):
         budget_page.click_recharge_button_popup()
 
         expected_message = "уменьшите сумму"
-        error_text = budget_page.get_error_message()
+        error_text = budget_page.get_error_message_max()
 
         assert error_text == expected_message, f"Expected '{expected_message}', got '{error_text}'"
 
@@ -131,6 +131,6 @@ class TestBudgetPage(BaseCase):
         budget_page.click_activate_promo_code_button()
 
         expected = "Промокод не может быть активирован"
-        result = budget_page.get_error_message_displayed()
+        result = budget_page.get_error_message_promocode()
 
         assert result == expected, f"Expected '{expected}', got '{result}'"
