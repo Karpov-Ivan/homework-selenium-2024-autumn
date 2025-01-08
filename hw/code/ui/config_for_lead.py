@@ -1,0 +1,5 @@
+FORM_CREATION_NAME = 'Тест на создание формы'
+FORM_ARCHIVATION_NAME = 'Тест на архивирование формы'
+FORM_MODIFICATION_NAME = 'Тест на редактирование формы'
+FORM_NOT_MODIFIED = 'Текст должен быть отредактирован'
+FORM_RECOVERMENT_NAME = 'Тест на восстановление формы'
